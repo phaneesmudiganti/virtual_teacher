@@ -1,94 +1,48 @@
-#!/usr/bin/env python
-import sys
-import warnings
-
-from datetime import datetime
-
 from virtual_teacher.crew import VirtualTeacher
+from virtual_teacher.utils.utils import clean_text_for_audio, generate_tts, load_pdf_content
 
-warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
+def run(subject, chapter_number, student_query):
+    chapter_content = load_pdf_content(subject, chapter_number)
 
-# This main file is intended to be a way for you to run your
-# crew locally, so refrain from adding unnecessary logic into this file.
-# Replace with inputs you want to test with, it will automatically
-# interpolate any tasks and agents information
+    # Inject chapter content into agent and task config if needed
+    teacher_crew = VirtualTeacher()
+    result = teacher_crew.crew().kickoff(inputs={
+        "subject": subject,
+        "chapter_number": chapter_number,
+        "chapter_content": chapter_content,
+        "student_query": student_query
+    })
 
-def run():
-    """
-    Run the crew.
-    """
-    inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year)
-    }
+    # Generate TTS
+    cleaned_text = clean_text_for_audio(result.raw)
+    audio_path = generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
 
-    try:
-        VirtualTeacher().crew().kickoff(inputs=inputs)
-    except Exception as e:
-        raise Exception(f"An error occurred while running the crew: {e}")
+    return result, audio_path
 
+def launch_gradio():
+    from gradio import Interface, Dropdown, Textbox, State, TextArea, Audio, Markdown
 
-def train():
-    """
-    Train the crew for a given number of iterations.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        'current_year': str(datetime.now().year)
-    }
-    try:
-        VirtualTeacher().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
+    def chat(subject, chapter_number, message, history=None):
+        response, audio_path = run(subject, int(chapter_number), message)
+        return response, audio_path, history, f"**User:** {message}\n\n**Teacher:** {response}"
 
-    except Exception as e:
-        raise Exception(f"An error occurred while training the crew: {e}")
+    Interface(
+        fn=chat,
+        inputs=[
+            Dropdown(label="Subject", choices=["Hindi", "Math", "Science"]),
+            Dropdown(label="Chapter Number", choices=["1", "2", "3", "4", "5", "6"]),
+            Textbox(label="Your message", placeholder="Type your question here..."),
+            State()
+        ],
+        outputs=[
+            TextArea(label="Response", lines=10),
+            Audio(label="Voice Response", type="filepath"),
+            State(),
+            Markdown(label="Chat History")
+        ],
+        title="CBSE Grade 2 Subject Teacher",
+        description="Select a subject and ask questions about the chapter!"
+    ).launch(inbrowser=True)
 
-def replay():
-    """
-    Replay the crew execution from a specific task.
-    """
-    try:
-        VirtualTeacher().crew().replay(task_id=sys.argv[1])
-
-    except Exception as e:
-        raise Exception(f"An error occurred while replaying the crew: {e}")
-
-def test():
-    """
-    Test the crew execution and returns the results.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        "current_year": str(datetime.now().year)
-    }
-
-    try:
-        VirtualTeacher().crew().test(n_iterations=int(sys.argv[1]), eval_llm=sys.argv[2], inputs=inputs)
-
-    except Exception as e:
-        raise Exception(f"An error occurred while testing the crew: {e}")
-
-def run_with_trigger():
-    """
-    Run the crew with trigger payload.
-    """
-    import json
-
-    if len(sys.argv) < 2:
-        raise Exception("No trigger payload provided. Please provide JSON payload as argument.")
-
-    try:
-        trigger_payload = json.loads(sys.argv[1])
-    except json.JSONDecodeError:
-        raise Exception("Invalid JSON payload provided as argument")
-
-    inputs = {
-        "crewai_trigger_payload": trigger_payload,
-        "topic": "",
-        "current_year": ""
-    }
-
-    try:
-        result = VirtualTeacher().crew().kickoff(inputs=inputs)
-        return result
-    except Exception as e:
-        raise Exception(f"An error occurred while running the crew with trigger: {e}")
+if __name__ == "__main__":
+    launch_gradio()

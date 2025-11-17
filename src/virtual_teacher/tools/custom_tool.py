@@ -1,19 +1,38 @@
-from crewai.tools import BaseTool
-from typing import Type
-from pydantic import BaseModel, Field
+from crewai.tools import BaseTool, tool
 
+# class VirtualTeacherTools:
+"""
+A collection of custom tools for the Virtual Teacher Agent.
+These tools handle specific interactions like recording unknown questions
+or user details.
+"""
 
-class MyCustomToolInput(BaseModel):
-    """Input schema for MyCustomTool."""
-    argument: str = Field(..., description="Description of the argument.")
+@tool
+def record_unknown_question(question: str, subject: str) -> str:
+    """
+    Records a question that is unrelated to the current chapter or subject.
+    Returns a friendly message guiding the student back to the topic.
 
-class MyCustomTool(BaseTool):
-    name: str = "Name of my tool"
-    description: str = (
-        "Clear description for what this tool is useful for, your agent will need this information to use it."
-    )
-    args_schema: Type[BaseModel] = MyCustomToolInput
+    Args:
+        question (str): The question asked by the student.
+        subject (str): The current subject being taught.
+    """
+    print(f"\n[Teacher Note]: Recording an unknown question: '{question}' for subject '{subject}'")
+    return f"That's an interesting thought! But for now, let's focus on our {subject} chapter. What else would you like to know about it?"
 
-    def _run(self, argument: str) -> str:
-        # Implementation goes here
-        return "this is an example of a tool output, ignore it and move along."
+@tool
+def record_user_details(details: str) -> str:
+    """
+    Records user contact details like email or a request to stay in touch.
+    Returns a warm, appreciative message.
+
+    Args:
+        details (str): The user details provided (e.g., email address, contact request).
+    """
+    print(f"\n[Teacher Note]: Recording user details: '{details}'")
+    return "Thank you for sharing your details! It's lovely to connect. Let's learn more about our chapter now!"
+
+# Initialize the tools. Instances of these tools will be passed to the agent.
+# Note: The 'subject' for record_unknown_question will be implicitly handled by the agent's context
+# or its ability to access its own 'backstory' subject.
+# teacher_tools = VirtualTeacherTools()

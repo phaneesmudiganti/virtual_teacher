@@ -1,5 +1,6 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+from .tools.custom_tool import record_unknown_question, record_user_details
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 # If you want to run a snippet of code before or after the crew starts,
@@ -10,44 +11,31 @@ from typing import List
 class VirtualTeacher():
     """VirtualTeacher crew"""
 
-    agents: List[BaseAgent]
-    tasks: List[Task]
+    agents_config = 'config/agents.yaml'
+    tasks_config = 'config/tasks.yaml'
 
-    # Learn more about YAML configuration files here:
-    # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
-    # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
-    
-    # If you would like to add tools to your agents, you can learn more about it here:
-    # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def researcher(self) -> Agent:
+    def teacher(self) -> Agent:
         return Agent(
-            config=self.agents_config['researcher'], # type: ignore[index]
+            config=self.agents_config['teacher'], # type: ignore[index]
+            tools=[
+                record_unknown_question,
+                record_user_details
+            ],
             verbose=True
         )
 
-    @agent
-    def reporting_analyst(self) -> Agent:
-        return Agent(
-            config=self.agents_config['reporting_analyst'], # type: ignore[index]
-            verbose=True
+    @task
+    def teaching_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['teaching_task'] # type: ignore[index]
         )
 
-    # To learn more about structured task outputs,
-    # task dependencies, and task callbacks, check out the documentation:
-    # https://docs.crewai.com/concepts/tasks#overview-of-a-task
-    @task
-    def research_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['research_task'], # type: ignore[index]
-        )
-
-    @task
-    def reporting_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['reporting_task'], # type: ignore[index]
-            output_file='report.md'
-        )
+    # @task
+    # def follow_up_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['follow_up_task'] # type: ignore[index]
+    # )
 
     @crew
     def crew(self) -> Crew:
@@ -59,6 +47,5 @@ class VirtualTeacher():
             agents=self.agents, # Automatically created by the @agent decorator
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
-            verbose=True,
-            # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
+            verbose=True
         )

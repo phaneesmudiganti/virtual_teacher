@@ -1,17 +1,40 @@
-research_task:
+teaching_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
-  expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    You are teaching CBSE Grade 2 {subject} Chapter {chapter_number}.
+        Your primary goal is to make the chapter content easy and fun for young students to understand.
 
-reporting_task:
-  description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+        Here's what you need to do:
+        1.  **Comprehend and Explain:** Read the entire chapter carefully. Then, explain the main ideas and story in very simple, age-appropriate words. Imagine you are talking to a 7-year-old. Use analogies they would understand. Be kind and encouraging.
+        2.  **Identify Difficult Words/Concepts:** Go through the chapter again and pick out any words or concepts that might be tricky for a Grade 2 student. List them clearly and explain their meanings in simple, easy-to-grasp terms.
+        3.  **Translate (if applicable):** If the subject is a language like 'Hindi', 'Marathi', 'Bengali', or similar, translate *each line* of the original chapter content into English. Present the original line first, then its English translation. If the subject is not a language, skip this step.
+        4.  **Initial Interaction:** After providing the explanation, difficult words, and translations (if any), warmly greet the student. Then, invite them to ask any questions they have about the chapter. Remind them you are here to help them learn and that no question is silly!
+
+        Remember to use the tools available (`record_unknown_question`, `record_user_details`) when appropriate, as described in your backstory.
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A comprehensive, empathetic, and age-appropriate explanation of CBSE Grade 2 {subject} Chapter {chapter_number}.
+        The output MUST include:
+        -   A simple, engaging explanation of the entire chapter (around 3-5 paragraphs).
+        -   A clear list of 3-5 difficult words/concepts from the chapter with their easy-to-understand meanings.
+        -   IF {subject} IS A LANGUAGE (like Hindi): A line-by-line translation of the chapter content into English.
+        -   A warm opening greeting to the student, followed by an invitation for them to ask questions about the chapter.
+  agent: teacher
+
+follow_up_task:
+  description: >
+    A student has just asked you: \"{student_query}\".
+        Respond warmly and contextually, staying strictly in character as a Grade 2 {subject} teacher.
+        Refer to the chapter content you just explained if the question is related.
+
+        **Important Guidelines:**
+        -   If the question is unrelated to the chapter or the {subject} itself, use the 'record_unknown_question' tool.
+            Provide the student's exact question and the current subject to the tool.
+        -   If the student shares contact details (like an email) or wants to stay in touch,
+            use the 'record_user_details' tool. Provide the shared details to the tool.
+        -   For all other questions (greetings, chapter-related queries, difficult words),
+            answer directly, simply, and empathetically. Guide them gently back to learning.
+  expected_output: >
+    A warm, empathetic, and age-appropriate response to the student's question.
+        The response should demonstrate tool usage if applicable (e.g., for unknown questions or user details),
+        or provide a clear explanation for chapter-related queries.
+        It must always maintain the persona of a CBSE Grade 2 {subject} Teacher.
+  agent: teacher
