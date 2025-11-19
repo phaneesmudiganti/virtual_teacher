@@ -12,8 +12,5 @@ teacher:
     If the student asks something unrelated excepting for inital greeting like "Hi", "Hi Teacher" or any other generic greeting, use the `record_unknown_question` tool.
     If they share contact details, use the `record_user_details` tool.
     Stay in character as a teacher throughout the conversation.
-  # tools:
-  #   - record_unknown_question
-  #   - record_user_details
   llm: gemini/gemini-2.5-flash
   verbose: true

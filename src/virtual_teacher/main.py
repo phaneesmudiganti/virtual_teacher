@@ -19,7 +19,7 @@ def resolve_chapter_content(subject: str, chapter_number: int, content_source: s
 def start_session(subject, chapter_number, content_source, pdf_file):
     """Step 1: Greeting and asking what the student needs."""
     try:
-        chapter_content = resolve_chapter_content(subject, chapter_number, content_source, pdf_file)
+        # chapter_content = resolve_chapter_content(subject, chapter_number, content_source, pdf_file)
         vt = VirtualTeacher()
         crew = vt.crew()
 
@@ -28,7 +28,7 @@ def start_session(subject, chapter_number, content_source, pdf_file):
         greeting_result = crew.kickoff(inputs={
             "subject": subject,
             "chapter_number": chapter_number,
-            "chapter_content": chapter_content
+            # "chapter_content": chapter_content
         })
 
         response_text = getattr(greeting_result, "raw", None)

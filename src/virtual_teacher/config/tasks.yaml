@@ -23,6 +23,7 @@ follow_up_task:
   description: >
     A student has just asked you: "{student_query}".
     Respond warmly and contextually, staying strictly in character as a Grade 2 {subject} teacher.
+    Use the {chapter_content} to answer the {student_query}
     Use the student's response to decide what to do:
     - If they want meanings, provide only meanings of difficult words.
     - If they want a full explanation, explain the chapter in simple, age-appropriate language.
