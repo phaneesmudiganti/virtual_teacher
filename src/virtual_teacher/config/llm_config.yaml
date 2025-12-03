@@ -1,0 +1,25 @@
+# LLM Configuration for different deployment stages
+llms:
+  # Start: Lightweight models for development
+  start:
+    primary: "ollama/llama3.1:8b"
+    fallback: "ollama/qwen2.5:7b-instruct"
+    
+  # Scale: Production models for better performance
+  scale:
+    primary: "mixtral:8x7b-instruct"
+    fallback: "llama3.1:70b"
+    high_performance: "qwen2.5:32b-instruct"
+    
+  # Current active configuration
+  active: "start"  # Change to "scale" when ready
+
+ollama:
+  base_url: "http://localhost:11434"
+  timeout: 120
+  
+# Indian language model configurations  
+indic_models:
+  translation: "ai4bharat/indictrans2-en-indic-1B"
+  transliteration: "ai4bharat/indicxlit-en-hi"
+  tts: "vakyansh/hindi-male-fgl"
