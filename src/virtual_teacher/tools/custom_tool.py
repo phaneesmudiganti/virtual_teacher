@@ -40,6 +40,7 @@ class ProcessUploadedDocumentTool(BaseTool):
 
             # Determine file type and process accordingly
             file_ext = Path(file_path).suffix.lower()
+            logger.info(f"Processing uploaded document: {file_path}, ext={file_ext}")
 
             if file_ext == '.pdf':
                 extracted_text = processor.process_pdf_with_ocr(file_path)
@@ -59,6 +60,7 @@ class ProcessUploadedDocumentTool(BaseTool):
 
             # Store processed content for follow-up questions
             self._store_session_content(extracted_text, content_info)
+            logger.info("Uploaded document processed successfully")
 
             return response
 
@@ -109,6 +111,7 @@ class ProcessUploadedDocumentTool(BaseTool):
 
         # Store file path in environment or session state
         os.environ['CURRENT_SESSION_CONTENT'] = session_file.name
+        logger.info(f"Session content stored: {session_file.name}")
 
 
 class AnswerFromDocumentTool(BaseTool):
@@ -131,6 +134,7 @@ class AnswerFromDocumentTool(BaseTool):
 
             # Analyze the question and provide contextual help
             response = self._provide_contextual_help(question, content)
+            logger.info("Answered question from document content")
 
             return response
 

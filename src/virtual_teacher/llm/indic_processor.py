@@ -102,20 +102,26 @@ class IndicLanguageProcessor:
         total_chars = len([c for c in text if c.isalpha()])
         
         if total_chars > 0 and (hindi_chars / total_chars) > 0.3:
-            return 'hi'
-        return 'en'
+            result = 'hi'
+        else:
+            result = 'en'
+        logger.debug(f"detect_language={result}")
+        return result
     
     def enhance_for_indic_context(self, response: str, subject: str) -> str:
         """Enhance response for Indian educational context"""
         # Add culturally relevant examples and context
         if subject.lower() == 'hindi':
             # Keep Hindi responses in Hindi
+            logger.debug("Subject is Hindi, keeping response as is")
             return response
         elif self.detect_language(response) == 'hi':
             # Already in Hindi
+            logger.debug("Response detected as Hindi, keeping as is")
             return response
         else:
             # Could add Hindi explanations for English content
+            logger.debug("Response in English, enhancement not applied")
             return response
 
 

@@ -1,0 +1,12 @@
+llms:
+  active: start
+  scale:
+    fallback: llama3.1:70b-instruct
+    high_performance: qwen2.5:32b-instruct
+    primary: mixtral:8x7b-instruct
+  start:
+    fallback: qwen2.5:7b-instruct
+    primary: llama3.1:8b
+ollama:
+  base_url: http://localhost:11434
+  timeout: 120

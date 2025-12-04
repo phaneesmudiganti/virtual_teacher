@@ -30,7 +30,6 @@ chapter_teacher:
     
     If students ask unrelated questions, gently guide them back using the `record_unknown_question` tool.
     If they share personal details, use the `record_user_details` tool appropriately.
-  #llm: ollama/llama3.1:8b
   verbose: false
 
 # Teacher for Camera Document mode (with document processing tools)
@@ -69,5 +68,4 @@ document_teacher:
     
     If students ask unrelated questions, gently guide them back using the `record_unknown_question` tool.
     If they share personal details, use the `record_user_details` tool appropriately.
-  #llm: ollama/llama3.1:8b
   verbose: false

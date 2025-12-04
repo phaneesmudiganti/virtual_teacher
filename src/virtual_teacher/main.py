@@ -18,6 +18,7 @@ def resolve_chapter_content(subject: str, chapter_number: int, content_source: s
     Returns the chapter content based on selected content_source.
     Raises FileNotFoundError / ValueError for missing or unreadable inputs.
     """
+    logger.info(f"Resolving content: subject={subject}, chapter={chapter_number}, source={content_source}")
     if content_source == "Upload PDF":
         if not pdf_file:
             raise FileNotFoundError("No PDF uploaded. Please upload a chapter PDF.")
@@ -49,7 +50,9 @@ def is_specific_question(message: str) -> bool:
     is_just_greeting = any(message_lower.startswith(greeting) for greeting in generic_greetings) and len(
         message_lower.split()) <= 3
 
-    return (has_question_mark or has_request_words) and not is_just_greeting
+    result = (has_question_mark or has_request_words) and not is_just_greeting
+    logger.debug(f"is_specific_question={result}")
+    return result
 
 
 def clean_response_text(raw_response: str) -> str:
@@ -118,6 +121,7 @@ def clean_response_text(raw_response: str) -> str:
     if not cleaned or len(cleaned) < 10:
         return "I'm here to help you! Could you please repeat your question?"
 
+    logger.debug(f"Cleaned response length={len(cleaned)}")
     return cleaned
 
 
@@ -127,11 +131,13 @@ def process_camera_document(pdf_file, student_question=""):
         return "Please upload a document first!", None
 
     try:
+        logger.info("Processing camera document")
         doc_processor = ProcessUploadedDocumentTool()
         response_text = doc_processor._run(pdf_file, student_question if student_question.strip() else None)
 
         cleaned_text = clean_text_for_audio(response_text)
         audio_path = generate_tts(cleaned_text, lang='en')
+        logger.info("Camera document processed successfully")
         return response_text, audio_path
 
     except Exception:
@@ -145,11 +151,13 @@ def answer_document_question(question):
         return "Please ask a question about your uploaded document!", None
 
     try:
+        logger.info("Answering document question")
         answer_tool = AnswerFromDocumentTool()
         response_text = answer_tool._run(question)
 
         cleaned_text = clean_text_for_audio(response_text)
         audio_path = generate_tts(cleaned_text, lang='en')
+        logger.info("Answered document question successfully")
         return response_text, audio_path
 
     except Exception:
@@ -159,6 +167,7 @@ def answer_document_question(question):
 def start_session(subject, chapter_number, content_source, pdf_file):
     """Step 1: Greeting and asking what the student needs."""
     try:
+        logger.info(f"Starting session: subject={subject}, chapter={chapter_number}, source={content_source}")
         # Handle camera document mode
         if content_source == "Camera Document (📱 NEW!)":
             if not pdf_file:
@@ -178,6 +187,7 @@ def start_session(subject, chapter_number, content_source, pdf_file):
             crew.agents = [vt.chapter_teacher()]
             crew.tasks = [vt.teaching_task()]
 
+        logger.info("Kicking off greeting task")
         greeting_result = crew.kickoff(inputs={
             "subject": subject,
             "chapter_number": chapter_number,
@@ -192,6 +202,7 @@ def start_session(subject, chapter_number, content_source, pdf_file):
 
         cleaned_text = clean_text_for_audio(response_text)
         audio_path = generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
+        logger.info("Session started successfully")
         return response_text, audio_path
 
     except FileNotFoundError as fnf:
@@ -207,6 +218,7 @@ def start_session(subject, chapter_number, content_source, pdf_file):
 def smart_first_response(subject, chapter_number, content_source, pdf_file, student_query):
     """Handle first interaction when student asks a specific question"""
     try:
+        logger.info("Handling smart first response")
         # Handle document-based questions
         if content_source == "Camera Document (📱 NEW!)":
             if not pdf_file:
@@ -223,6 +235,7 @@ def smart_first_response(subject, chapter_number, content_source, pdf_file, stud
         crew.agents = [vt.chapter_teacher()]
         crew.tasks = [vt.smart_response_task()]
 
+        logger.info("Kicking off smart response task")
         smart_result = crew.kickoff(inputs={
             "subject": subject,
             "chapter_number": chapter_number,
@@ -238,6 +251,7 @@ def smart_first_response(subject, chapter_number, content_source, pdf_file, stud
 
         cleaned_text = clean_text_for_audio(response_text)
         audio_path = generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
+        logger.info("Smart response handled successfully")
         return response_text, audio_path
 
     except FileNotFoundError as fnf:
@@ -253,6 +267,7 @@ def smart_first_response(subject, chapter_number, content_source, pdf_file, stud
 def follow_up(subject, chapter_number, content_source, pdf_file, student_query):
     """Step 2: Respond based on student input."""
     try:
+        logger.info("Handling follow-up interaction")
         # Handle document-based questions
         if content_source == "Camera Document (📱 NEW!)":
             if not pdf_file:
@@ -275,6 +290,7 @@ def follow_up(subject, chapter_number, content_source, pdf_file, student_query):
         crew.agents = [vt.chapter_teacher()]
         crew.tasks = [vt.follow_up_task()]
 
+        logger.info("Kicking off follow-up task")
         follow_up_result = crew.kickoff(inputs={
             "subject": subject,
             "chapter_number": chapter_number,
@@ -290,6 +306,7 @@ def follow_up(subject, chapter_number, content_source, pdf_file, student_query):
 
         cleaned_text = clean_text_for_audio(response_text)
         audio_path = generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
+        logger.info("Follow-up handled successfully")
         return response_text, audio_path
 
     except FileNotFoundError as fnf:
@@ -314,6 +331,7 @@ def run():
         format="%(asctime)s %(levelname)s %(name)s %(message)s",
         handlers=[stream_handler, file_handler]
     )
+    logger.info("Virtual Teacher app starting")
     with gr.Blocks(title="Virtual Teacher - Your Learning Assistant") as teacher:
         gr.Markdown("### 📚 Virtual Teacher - Choose your learning mode!")
         gr.Markdown("**New!** Upload photos of your homework or textbook pages and get instant help!")

@@ -19,21 +19,23 @@ class OllamaLLMManager:
     
     def __init__(self, config_path: str = "config/llm_config.yaml"):
         self.config = self._load_config(config_path)
-        # self.client = ollama.Client(base_url=self.config['ollama']['base_url'])
-        self.client = ollama.Client()
+        self.client = ollama.Client(host=self.config['ollama']['base_url'])
+        logger.info(f"Ollama client initialized with base_url: {self.config['ollama']['base_url']}")
         self.current_models = {}
         self._initialize_models()
     
     def _load_config(self, config_path: str) -> Dict[str, Any]:
         """Load LLM configuration"""
+        logger.info(f"Loading LLM config from {config_path}")
         config_file = Path(config_path)
         if not config_file.exists():
+            logger.info(f"LLM config file not found at {config_path}, creating default config")
             # Create default config if not exists
             default_config = {
                 'llms': {
                     'start': {
-                        'primary': 'ollama/llama3.1:8b',
-                        'fallback': 'ollama/qwen2.5:7b-instruct'
+                        'primary': 'llama3.1:8b',
+                        'fallback': 'qwen2.5:7b-instruct'
                     },
                     'scale': {
                         'primary': 'mixtral:8x7b-instruct', 
@@ -63,9 +65,9 @@ class OllamaLLMManager:
         for role, model_name in models.items():
             try:
                 # Check if model exists, pull if needed
-                # self._ensure_model_available(model_name)
+                self._ensure_model_available(model_name)
                 self.current_models[role] = LLM(
-                    model = model_name,
+                    model = f"ollama/{model_name}",
                     base_url = self.config['ollama']['base_url']
                 )
 
@@ -81,7 +83,8 @@ class OllamaLLMManager:
         try:
             # Check if model exists
             models = self.client.list()
-            available_models = [m['name'] for m in models['models']]
+           
+            available_models = [m['model'] for m in models['models']]
             
             if model_name not in available_models:
                 logger.info(f"Pulling model {model_name}...")
@@ -94,17 +97,19 @@ class OllamaLLMManager:
     def get_llm(self, role: str = "primary") -> OllamaLLM:
         """Get LLM instance for specified role"""
         if role in self.current_models:
+            logger.debug(f"Returning LLM for role={role}")
             return self.current_models[role]
         else:
-            # Fallback to primary if role not found
+            logger.debug(f"Role {role} not found, falling back to primary")
             return self.current_models.get("primary")
     
     def switch_tier(self, new_tier: str):
         """Switch between start/scale tiers"""
         if new_tier in self.config['llms']:
+            old_tier = self.config['llms']['active']
             self.config['llms']['active'] = new_tier
             self._initialize_models()
-            logger.info(f"Switched to {new_tier} tier")
+            logger.info(f"Switched tier from {old_tier} to {new_tier}")
         else:
             logger.error(f"Unknown tier: {new_tier}")
     

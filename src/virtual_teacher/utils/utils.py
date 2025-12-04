@@ -56,6 +56,7 @@ class DocumentProcessor:
         Returns:
             Path to the enhanced image
         """
+        logger.info(f"Enhancing image quality: {image_path}")
         img = cv2.imread(image_path)
 
         # Convert to grayscale
@@ -72,6 +73,7 @@ class DocumentProcessor:
         # Save enhanced image
         enhanced_path = image_path.replace('.jpg', '_enhanced.jpg').replace('.png', '_enhanced.png')
         cv2.imwrite(enhanced_path, thresh)
+        logger.info(f"Enhanced image saved: {enhanced_path}")
 
         return enhanced_path
 
@@ -89,6 +91,7 @@ class DocumentProcessor:
             ValueError: If text extraction fails
         """
         try:
+            logger.info(f"Extracting text from image: {image_path}")
             # Enhance image quality first
             enhanced_path = self.enhance_image_quality(image_path)
 
@@ -102,7 +105,9 @@ class DocumentProcessor:
             if os.path.exists(enhanced_path):
                 os.remove(enhanced_path)
 
-            return text.strip()
+            result = text.strip()
+            logger.info(f"Image OCR extracted characters: {len(result)}")
+            return result
 
         except Exception:
             logger.exception("Failed to extract text from image")
@@ -122,12 +127,15 @@ class DocumentProcessor:
             ValueError: If PDF processing fails
         """
         try:
+            logger.info(f"Processing PDF with OCR if needed: {pdf_path}")
             # First try regular text extraction
             regular_text = self._extract_regular_pdf_text(pdf_path)
             if regular_text and len(regular_text.strip()) > 50:
+                logger.info("Using regular PDF text extraction path")
                 return regular_text
 
             # If no text or very little text, use OCR
+            logger.info("Falling back to OCR PDF extraction")
             return self._extract_pdf_with_ocr(pdf_path)
 
         except Exception:
@@ -200,6 +208,7 @@ class DocumentProcessor:
                 if text:
                     content += text + "\n"
             doc.close()
+            logger.info(f"Regular PDF extraction characters: {len(content.strip())}")
             return content.strip()
         except Exception:
             logger.exception("Regular PDF text extraction failed")
@@ -217,6 +226,7 @@ class DocumentProcessor:
                 img = Image.open(io.BytesIO(img_data))
                 page_text = pytesseract.image_to_string(img, config='--psm 6 -l eng')
                 full_text += f"\n--- Page {page_num + 1} ---\n{page_text}\n"
+                logger.debug(f"OCR processed page {page_num + 1}")
             return full_text.strip()
         except Exception:
             logger.exception("OCR PDF extraction failed")
@@ -231,6 +241,16 @@ class AudioProcessor:
     """
 
     @staticmethod
+    def clean_text_for_audio(text):
+        text = re.sub(r'\*\*|\*|__|~~|`|–|-', '', text)
+        text = re.sub(r'\([^()\n]+\)', '', text)
+        text = re.sub(r'(\d+\.\s*)([^\n]+)', r'\1\2.', text)
+        text = re.sub(r'(English meaning:.*?)\n', r'\1. ', text)
+        text = re.sub(r'\n\s*[\*\-•]\s*', r'. ', text)
+        text = re.sub(r'\s{2,}', ' ', text)
+        return text.replace('\n', ' ').strip()
+
+    @staticmethod
     def generate_tts(text: str, lang: str = 'en') -> str:
         """
         Generate text-to-speech with Indian language support.
@@ -243,6 +263,7 @@ class AudioProcessor:
             Path to the generated audio file
         """
         try:
+            logger.info(f"Generating TTS, lang={lang}")
             # For Hindi/Indian languages, use different TTS approach
             if lang in ['hi', 'hi-in', 'hindi']:
                 return AudioProcessor._generate_indic_tts(text, lang)
@@ -261,6 +282,7 @@ class AudioProcessor:
         tts = gTTS(text=text, lang=lang)
         temp_audio = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
         tts.save(temp_audio.name)
+        logger.info(f"gTTS audio saved: {temp_audio.name}")
         return temp_audio.name
     
     @staticmethod  
@@ -284,6 +306,7 @@ class AudioProcessor:
             engine.save_to_file(text, temp_audio.name)
             engine.runAndWait()
             
+            logger.info(f"Indic TTS audio saved: {temp_audio.name}")
             return temp_audio.name
             
         except Exception:
@@ -299,6 +322,7 @@ class AudioProcessor:
             temp_audio = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
             engine.save_to_file(text, temp_audio.name)
             engine.runAndWait()
+            logger.info(f"System TTS audio saved: {temp_audio.name}")
             return temp_audio.name
         except Exception:
             logger.exception("System TTS failed")
@@ -321,9 +345,13 @@ class FileManager:
         cur = Path(__file__).resolve()
         for parent in cur.parents:
             if parent.name == "src":
-                return parent.parent  # repo root is the parent of 'src'
+                repo_root = parent.parent
+                logger.info(f"Detected repo root: {repo_root}")
+                return repo_root
         # Fallback: assume current working directory is the repo root
-        return Path.cwd()
+        repo_root = Path.cwd()
+        logger.info(f"Fallback repo root: {repo_root}")
+        return repo_root
 
     @staticmethod
     def load_pdf_content(subject: str, chapter_number: int) -> str:
@@ -351,6 +379,7 @@ class FileManager:
                 f"(subject={subject}, chapter={chapter_number})"
             )
 
+        logger.info(f"Loading PDF content: {path}")
         doc = fitz.open(path)
         content = ""
         for page in doc:
@@ -365,6 +394,7 @@ class FileManager:
                 "Consider using OCR for scanned documents."
             )
 
+        logger.info(f"Loaded PDF content characters: {len(content)}")
         return content
 
     @staticmethod
@@ -397,6 +427,7 @@ class FileManager:
         doc.close()
 
         text = "\n".join(parts).strip()
+        logger.info(f"Extracted uploaded PDF characters: {len(text)}")
         if not text:
             raise ValueError("The uploaded PDF has no extractable text. It may be scanned. Try OCR.")
 
