@@ -241,14 +241,17 @@ class AudioProcessor:
     """
 
     @staticmethod
-    def clean_text_for_audio(text):
-        text = re.sub(r'\*\*|\*|__|~~|`|–|-', '', text)
-        text = re.sub(r'\([^()\n]+\)', '', text)
+    def clean_text_for_audio(text: str, preserve_parentheses: bool = None) -> str:
+        text = re.sub(r'\*\*|\*|__|~~|`|-', '', text)
+        if not preserve_parentheses:
+            text = re.sub(r'\([^()\n]+\)', '', text)
         text = re.sub(r'(\d+\.\s*)([^\n]+)', r'\1\2.', text)
         text = re.sub(r'(English meaning:.*?)\n', r'\1. ', text)
-        text = re.sub(r'\n\s*[\*\-•]\s*', r'. ', text)
+        text = re.sub(r'\n\s*[\*\->]\s*', r'. ', text)
         text = re.sub(r'\s{2,}', ' ', text)
         return text.replace('\n', ' ').strip()
+
+
 
     @staticmethod
     def generate_tts(text: str, lang: str = 'en') -> str:
