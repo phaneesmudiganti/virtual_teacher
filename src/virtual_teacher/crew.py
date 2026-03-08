@@ -26,9 +26,23 @@ class VirtualTeacher:
                 RecordUserDetailsTool()
             ],
             llm=self.llm_manager.get_llm("primary"),  # Use Ollama LLM
-            verbose=False
+            verbose=False,
+            max_iter=3  # Prevent infinite loops
         )
         logger.info("Initialized chapter_teacher agent")
+        return agent
+
+    @agent
+    def simple_greeter(self) -> Agent:
+        """Agent for simple greeting tasks - NO tools to avoid confusion"""
+        agent = Agent(
+            config=self.agents_config['simple_greeter'],
+            tools=[],  # NO TOOLS - just greet and respond
+            llm=self.llm_manager.get_llm("primary"),
+            verbose=False,
+            max_iter=1  # Only one iteration needed for greetings
+        )
+        logger.info("Initialized simple_greeter agent")
         return agent
 
     @agent
@@ -43,7 +57,8 @@ class VirtualTeacher:
                 AnswerFromDocumentTool()
             ],
             llm=self.llm_manager.get_llm("primary"),  # Use Ollama LLM
-            verbose=False
+            verbose=False,
+            max_iter=5  # Prevent infinite loops
         )
         logger.info("Initialized document_teacher agent")
         return agent
@@ -57,29 +72,34 @@ class VirtualTeacher:
     @task
     def teaching_task(self) -> Task:
         return Task(
-            config=self.tasks_config['teaching_task']
+            config=self.tasks_config['teaching_task'],
+            agent=self.simple_greeter()  # Use simple greeter without tools
         )
 
     @task
     def smart_response_task(self) -> Task:
-        return Task(
+        task = Task(
             config=self.tasks_config['smart_response_task']
         )
+        task.agent = self.chapter_teacher()
+        return task
 
     @task
     def follow_up_task(self) -> Task:
-        return Task(
+        task = Task(
             config=self.tasks_config['follow_up_task']
         )
+        task.agent = self.chapter_teacher()
+        return task
 
     @crew
     def crew(self) -> Crew:
         """Creates the default crew"""
-        c = Crew(
+        crew = Crew(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
-            verbose=False
+            verbose=True
         )
         logger.info("Crew created")
-        return c
+        return crew

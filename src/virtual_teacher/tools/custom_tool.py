@@ -6,14 +6,49 @@ from typing import Optional
 
 from crewai.tools import BaseTool
 
-from virtual_teacher.utils.utils import DocumentProcessor
+from virtual_teacher.utils.document_processor import DocumentProcessor
 
 logger = logging.getLogger(__name__)
 
 
+def detect_file_encoding(path: str) -> str:
+    """Detect file encoding.
+
+    Tries to use charset_normalizer if installed. Otherwise attempts a few
+    common encodings and returns the first that successfully decodes the file.
+    Falls back to 'utf-8'.
+    """
+    try:
+        # Prefer charset_normalizer for robust detection
+        from charset_normalizer import from_bytes
+
+        with open(path, 'rb') as fh:
+            raw = fh.read(8192)
+
+        results = from_bytes(raw)
+        if results:
+            best = results.best()
+            if best and getattr(best, 'encoding', None):
+                return best.encoding
+    except Exception:
+        # charset_normalizer not available or detection failed — fallback
+        pass
+
+    # Fallback: try common encodings
+    for enc in ('utf-8', 'utf-8-sig', 'cp1252', 'latin-1'):
+        try:
+            with open(path, 'r', encoding=enc) as fh:
+                fh.read()
+            return enc
+        except Exception:
+            continue
+
+    return 'utf-8'
+
+
 class RecordUnknownQuestionTool(BaseTool):
     name: str = "record_unknown_question"
-    description: str = "Records an unknown question and guides the student back to the topic."
+    description: str = "Use this ONLY when a student asks a question that is completely unrelated to the subject (e.g., asking about sports in a Math class). Records the question and guides them back to the topic."
 
     def _run(self, question: str, subject: str) -> str:
         logger.info("Recording unknown question", extra={"question": question, "subject": subject})
@@ -22,7 +57,7 @@ class RecordUnknownQuestionTool(BaseTool):
 
 class RecordUserDetailsTool(BaseTool):
     name: str = "record_user_details"
-    description: str = "Records user contact details and responds warmly."
+    description: str = "Use this ONLY when a student explicitly shares personal contact information like phone number, email, or address. Records the details and responds warmly."
 
     def _run(self, details: str) -> str:
         logger.info("Recording user details", extra={"details": details})
@@ -104,7 +139,8 @@ class ProcessUploadedDocumentTool(BaseTool):
         """Store content for the current session"""
         # This would integrate with your session management system
         # For now, we'll use a simple approach
-        session_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
+        # Write session content as UTF-8 to avoid decoding issues on read
+        session_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt', encoding='utf-8')
         session_file.write(f"CONTENT_TYPE: {content_info}\n\n")
         session_file.write(text)
         session_file.close()
@@ -125,7 +161,12 @@ class AnswerFromDocumentTool(BaseTool):
             if not session_content_path or not os.path.exists(session_content_path):
                 return "I don't have any document content to reference. Please upload your homework or textbook first!"
 
-            with open(session_content_path, 'r', encoding='utf-8') as f:
+            # Detect encoding and read accordingly. Use errors='replace' to
+            # ensure we never raise a UnicodeDecodeError even if detection
+            # isn't perfect.
+            enc = detect_file_encoding(session_content_path)
+            logger.debug(f"Detected encoding={enc} for session file {session_content_path}")
+            with open(session_content_path, 'r', encoding=enc, errors='replace') as f:
                 content = f.read()
 
             # Extract the actual text content (skip the metadata)

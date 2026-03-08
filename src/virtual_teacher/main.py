@@ -8,10 +8,12 @@ import gradio as gr
 
 from virtual_teacher.crew import VirtualTeacher
 from virtual_teacher.tools.custom_tool import ProcessUploadedDocumentTool, AnswerFromDocumentTool
-from virtual_teacher.utils.utils import clean_text_for_audio, generate_tts, load_pdf_content, load_pdf_from_path
+from virtual_teacher.utils.audio_processor import AudioProcessor
+from virtual_teacher.utils.file_manager import FileManager
 
 logger = logging.getLogger(__name__)
-
+audio_processor = AudioProcessor()
+file_manager = FileManager()
 
 def resolve_chapter_content(subject: str, chapter_number: int, content_source: str, pdf_file: str | Path | None) -> str:
     """
@@ -22,12 +24,12 @@ def resolve_chapter_content(subject: str, chapter_number: int, content_source: s
     if content_source == "Upload PDF":
         if not pdf_file:
             raise FileNotFoundError("No PDF uploaded. Please upload a chapter PDF.")
-        return load_pdf_from_path(pdf_file)
+        return file_manager.load_pdf_from_path(pdf_file)
     elif content_source == "Camera Document (📱 NEW!)":
         # This will be handled by the OCR tools
         return ""
     # Default: Chapter from repo content
-    return load_pdf_content(subject, chapter_number)
+    return file_manager.load_pdf_content(subject, chapter_number)
 
 
 def is_specific_question(message: str) -> bool:
@@ -53,6 +55,43 @@ def is_specific_question(message: str) -> bool:
     result = (has_question_mark or has_request_words) and not is_just_greeting
     logger.debug(f"is_specific_question={result}")
     return result
+
+
+def normalize_question(question: str) -> str:
+    """Normalize student queries to more explicit phrasing for the agent."""
+    if not question:
+        return question
+
+    q = question.strip()
+    # replace common synonyms for vocabulary requests
+    # lower-case search to preserve original capitalization in output
+    patterns = [
+        (r"\bhard words\b", "difficult words"),
+        (r"\btricky words\b", "difficult words"),
+        (r"\bmeaning of the words\b", "meanings of difficult words"),
+        (r"\btheir english meanings\b", "their English meanings"),
+    ]
+    import re
+    for pat, repl in patterns:
+        q = re.sub(pat, repl, q, flags=re.IGNORECASE)
+    return q
+
+
+def fallback_for_unknown(subject: str, student_query: str) -> str:
+    """Return a friendly fallback response when the tool was invoked incorrectly."""
+    query_lower = student_query.lower() if student_query else ""
+    vocab_keywords = ["meaning", "word", "hard word", "difficult word", "english meaning", "vocabulary"]
+    if any(kw in query_lower for kw in vocab_keywords):
+        return (
+            "It seems like you're asking about difficult words and their meanings. "
+            "Please tell me which word from the chapter you'd like to understand, "
+            "or I can explain some common tricky words for you."
+        )
+    else:
+        return (
+            f"That's an interesting thought, but let's focus on {subject}. "
+            "What part of the chapter would you like help with?"
+        )
 
 
 def clean_response_text(raw_response: str) -> str:
@@ -132,11 +171,28 @@ def process_camera_document(pdf_file, student_question=""):
 
     try:
         logger.info("Processing camera document")
-        doc_processor = ProcessUploadedDocumentTool()
-        response_text = doc_processor._run(pdf_file, student_question if student_question.strip() else None)
+        # Use the proper agent/task flow for document processing
+        vt = VirtualTeacher()
+        crew = vt.crew()
 
-        cleaned_text = clean_text_for_audio(response_text)
-        audio_path = generate_tts(cleaned_text, lang='en')
+        # Use document_teacher agent with document_analysis_task
+        crew.agents = [vt.document_teacher()]
+        crew.tasks = [vt.document_analysis_task()]
+
+        inputs = {
+            "document_path": pdf_file,
+            "student_question": student_question if student_question else ""
+        }
+
+        result = crew.kickoff(inputs=inputs)
+        response_text = getattr(result, "raw", None)
+        response_text = clean_response_text(response_text)
+
+        if not response_text:
+            response_text = "I processed your document but couldn't generate a response. Please try asking your question again."
+
+        cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+        audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if 'hindi' in response_text.lower() else 'en')
         logger.info("Camera document processed successfully")
         return response_text, audio_path
 
@@ -155,8 +211,8 @@ def answer_document_question(question):
         answer_tool = AnswerFromDocumentTool()
         response_text = answer_tool._run(question)
 
-        cleaned_text = clean_text_for_audio(response_text)
-        audio_path = generate_tts(cleaned_text, lang='en')
+        cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+        audio_path = audio_processor.generate_tts(cleaned_text, lang='en')
         logger.info("Answered document question successfully")
         return response_text, audio_path
 
@@ -200,8 +256,8 @@ def start_session(subject, chapter_number, content_source, pdf_file):
         if not response_text or "record_unknown_question" in str(response_text):
             response_text = f"Hello! Good morning! I'm your {subject} teacher. Would you like me to explain the chapter, give meanings of words, or answer a question?"
 
-        cleaned_text = clean_text_for_audio(response_text)
-        audio_path = generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
+        cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+        audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
         logger.info("Session started successfully")
         return response_text, audio_path
 
@@ -235,6 +291,9 @@ def smart_first_response(subject, chapter_number, content_source, pdf_file, stud
         crew.agents = [vt.chapter_teacher()]
         crew.tasks = [vt.smart_response_task()]
 
+        # normalize query to reduce misinterpretation
+        student_query = normalize_question(student_query)
+
         logger.info("Kicking off smart response task")
         smart_result = crew.kickoff(inputs={
             "subject": subject,
@@ -246,11 +305,16 @@ def smart_first_response(subject, chapter_number, content_source, pdf_file, stud
         response_text = getattr(smart_result, "raw", None)
         response_text = clean_response_text(response_text)
 
+        # similar fallback for smart first response
+        if response_text and "record_unknown_question" in response_text.lower():
+            logger.warning("Smart-response agent invoked unknown-question tool; applying fallback")
+            response_text = fallback_for_unknown(subject, student_query)
+
         if not response_text:
             response_text = "I'm here to help! Could you clarify your question?"
 
-        cleaned_text = clean_text_for_audio(response_text)
-        audio_path = generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
+        cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+        audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
         logger.info("Smart response handled successfully")
         return response_text, audio_path
 
@@ -272,13 +336,9 @@ def follow_up(subject, chapter_number, content_source, pdf_file, student_query):
         if content_source == "Camera Document (📱 NEW!)":
             if not pdf_file:
                 return "Please upload your homework or textbook first!", None
-            # First process the document, then answer the question
-            doc_response, _ = process_camera_document(pdf_file, student_query)
-            if "I can help you with:" in doc_response:
-                # Document was processed successfully, now answer the specific question
-                return answer_document_question(student_query)
-            else:
-                return doc_response, None
+            # For follow-up questions about documents, use AnswerFromDocumentTool directly
+            # since the document should already be processed and stored
+            return answer_document_question(student_query)
 
         # Original functionality for chapters and uploaded PDFs
         chapter_content = resolve_chapter_content(subject, chapter_number, content_source, pdf_file)
@@ -289,6 +349,9 @@ def follow_up(subject, chapter_number, content_source, pdf_file, student_query):
         # Override to use chapter_teacher only
         crew.agents = [vt.chapter_teacher()]
         crew.tasks = [vt.follow_up_task()]
+
+        # normalize question text before sending to agent
+        student_query = normalize_question(student_query)
 
         logger.info("Kicking off follow-up task")
         follow_up_result = crew.kickoff(inputs={
@@ -301,11 +364,16 @@ def follow_up(subject, chapter_number, content_source, pdf_file, student_query):
         response_text = getattr(follow_up_result, "raw", None)
         response_text = clean_response_text(response_text)
 
+        # If the agent mistakenly invoked the unknown-question tool, try a smarter fallback
+        if response_text and "record_unknown_question" in response_text.lower():
+            logger.warning("Agent used record_unknown_question; applying fallback logic")
+            response_text = fallback_for_unknown(subject, student_query)
+
         if not response_text:
             response_text = "I'm here to help! Could you clarify your question?"
 
-        cleaned_text = clean_text_for_audio(response_text)
-        audio_path = generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
+        cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+        audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
         logger.info("Follow-up handled successfully")
         return response_text, audio_path
 

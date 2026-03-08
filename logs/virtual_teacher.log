@@ -1,0 +1,929 @@
+2025-12-04 17:04:24,345 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 17:04:50,386 WARNING root Indian language libraries not available. Install: indic-nlp-library, transformers
+2025-12-04 17:04:51,642 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 17:05:39,009 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 17:05:39,014 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 17:05:39,023 INFO virtual_teacher.utils.utils Detected repo root: C:\AgenticAI\virtual_teacher
+2025-12-04 17:05:39,028 INFO virtual_teacher.utils.utils Loading PDF content: C:\AgenticAI\virtual_teacher\content\hindi\chapter1.pdf
+2025-12-04 17:05:39,152 INFO virtual_teacher.utils.utils Loaded PDF content characters: 3459
+2025-12-04 17:05:39,172 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2025-12-04 17:05:39,766 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2025-12-04 17:05:41,902 INFO virtual_teacher.llm.llm_manager Pulling model qwen2.5:7b-instruct...
+2025-12-04 17:09:48,387 INFO virtual_teacher.llm.llm_manager Successfully pulled qwen2.5:7b-instruct
+2025-12-04 17:09:48,396 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2025-12-04 17:09:48,429 INFO virtual_teacher.llm.llm_manager Pulling model llama3.1:8b...
+2025-12-04 17:13:28,038 INFO virtual_teacher.llm.llm_manager Successfully pulled llama3.1:8b
+2025-12-04 17:13:28,048 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2025-12-04 17:13:28,165 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 17:13:28,231 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 17:13:28,563 INFO virtual_teacher.crew Crew created
+2025-12-04 17:13:28,581 INFO virtual_teacher.main Kicking off greeting task
+2025-12-04 17:13:28,965 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:21:31,490 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:21:33,918 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 17:21:34,012 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:22:07,031 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:22:09,417 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 17:22:09,573 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:22:41,661 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:22:43,976 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 17:22:44,179 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:24:08,630 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:24:10,916 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 17:24:11,127 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:24:47,370 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:24:49,624 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 17:24:49,787 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:25:12,137 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:25:14,715 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:26:41,092 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:26:43,403 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 17:26:43,595 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:28:16,917 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:28:19,373 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:29:08,692 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:29:11,203 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:29:55,507 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:29:57,956 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 17:29:58,081 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:40:00,225 ERROR virtual_teacher.main Error in start_session
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_sync\connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 136, in handle_request
+    raise exc
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_sync\http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_backends\sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\llms\custom_httpx\http_handler.py", line 925, in post
+    response = self.client.send(req, stream=stream)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\llms\custom_httpx\llm_http_handler.py", line 216, in _make_common_sync_call
+    response = sync_httpx_client.post(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\llms\custom_httpx\http_handler.py", line 929, in post
+    raise litellm.Timeout(
+litellm.exceptions.Timeout: litellm.Timeout: Connection timed out after 600.0 seconds.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\main.py", line 3444, in completion
+    response = base_llm_http_handler.completion(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\llms\custom_httpx\llm_http_handler.py", line 519, in completion
+    response = self._make_common_sync_call(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\llms\custom_httpx\llm_http_handler.py", line 243, in _make_common_sync_call
+    raise self._handle_error(e=e, provider_config=provider_config)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\llms\custom_httpx\llm_http_handler.py", line 3595, in _handle_error
+    raise provider_config.get_error_class(
+litellm.llms.ollama.common_utils.OllamaError: litellm.Timeout: Connection timed out after 600.0 seconds.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\main.py", line 191, in start_session
+    greeting_result = crew.kickoff(inputs={
+                      ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\crew.py", line 706, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\crew.py", line 823, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\crew.py", line 931, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\task.py", line 458, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\task.py", line 591, in _execute_core
+    raise e  # Re-raise the exception after emitting the event
+    ^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\task.py", line 522, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\agent\core.py", line 514, in execute_task
+    raise e
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\agent\core.py", line 490, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\agent\core.py", line 598, in _execute_without_timeout
+    return self.agent_executor.invoke(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\agents\crew_agent_executor.py", line 188, in invoke
+    formatted_answer = self._invoke_loop()
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\agents\crew_agent_executor.py", line 287, in _invoke_loop
+    raise e
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\agents\crew_agent_executor.py", line 229, in _invoke_loop
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\utilities\agent_utils.py", line 276, in get_llm_response
+    raise e
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\utilities\agent_utils.py", line 268, in get_llm_response
+    answer = llm.call(
+             ^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\llm.py", line 1317, in call
+    return self._handle_non_streaming_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\llm.py", line 1077, in _handle_non_streaming_response
+    response = litellm.completion(**params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\utils.py", line 1382, in wrapper
+    raise e
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\utils.py", line 1251, in wrapper
+    result = original_function(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\main.py", line 3842, in completion
+    raise exception_type(
+          ^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\litellm_core_utils\exception_mapping_utils.py", line 2328, in exception_type
+    raise e
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\litellm\litellm_core_utils\exception_mapping_utils.py", line 2297, in exception_type
+    raise APIConnectionError(
+litellm.exceptions.APIConnectionError: litellm.APIConnectionError: OllamaException - litellm.Timeout: Connection timed out after 600.0 seconds.
+2025-12-04 17:49:54,898 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 17:50:01,690 WARNING root Indian language libraries not available. Install: indic-nlp-library, transformers
+2025-12-04 17:50:02,364 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 17:50:16,747 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 17:50:16,749 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 17:50:16,753 INFO virtual_teacher.utils.utils Detected repo root: C:\AgenticAI\virtual_teacher
+2025-12-04 17:50:16,753 INFO virtual_teacher.utils.utils Loading PDF content: C:\AgenticAI\virtual_teacher\content\hindi\chapter1.pdf
+2025-12-04 17:50:16,960 INFO virtual_teacher.utils.utils Loaded PDF content characters: 3459
+2025-12-04 17:50:16,964 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2025-12-04 17:50:17,655 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2025-12-04 17:50:19,743 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2025-12-04 17:50:19,754 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2025-12-04 17:50:19,793 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 17:50:19,825 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 17:50:19,847 INFO virtual_teacher.crew Initialized simple_greeter agent
+2025-12-04 17:50:20,173 INFO virtual_teacher.crew Crew created
+2025-12-04 17:50:20,193 INFO virtual_teacher.main Kicking off greeting task
+2025-12-04 17:50:20,465 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 17:51:57,378 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 17:51:59,691 ERROR virtual_teacher.main Error in start_session
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\main.py", line 203, in start_session
+    cleaned_text = clean_text_for_audio(response_text)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\utils.py", line 443, in clean_text_for_audio
+    return AudioProcessor.clean_text_for_audio(text, preserve_parentheses)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: AudioProcessor.clean_text_for_audio() takes 1 positional argument but 2 were given
+2025-12-04 18:20:51,990 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 18:26:04,069 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 18:26:09,757 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 18:26:21,250 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 18:26:21,250 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 18:26:21,263 INFO virtual_teacher.utils.file_manager Detected repo root: C:\AgenticAI\virtual_teacher
+2025-12-04 18:26:21,271 INFO virtual_teacher.utils.file_manager Loading PDF content: C:\AgenticAI\virtual_teacher\content\hindi\chapter1.pdf
+2025-12-04 18:26:21,482 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3459
+2025-12-04 18:26:21,499 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2025-12-04 18:26:23,048 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2025-12-04 18:26:25,132 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2025-12-04 18:26:25,158 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2025-12-04 18:26:25,174 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 18:26:25,297 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 18:26:25,342 INFO virtual_teacher.crew Initialized simple_greeter agent
+2025-12-04 18:26:25,500 INFO virtual_teacher.crew Crew created
+2025-12-04 18:26:25,511 INFO virtual_teacher.main Kicking off greeting task
+2025-12-04 18:26:25,780 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 18:28:47,448 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 18:28:49,735 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2025-12-04 18:28:52,426 INFO comtypes.client._code_cache Could not import comtypes.gen, trying to create it.
+2025-12-04 18:28:52,431 INFO comtypes.client._code_cache Created comtypes.gen directory: 'C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\comtypes\gen'
+2025-12-04 18:28:52,500 INFO comtypes.client._code_cache Writing __init__.py file: 'C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\comtypes\gen\__init__.py'
+2025-12-04 18:28:52,757 INFO comtypes.client._code_cache Using writeable comtypes cache directory: 'C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\comtypes\gen'
+2025-12-04 18:28:52,935 INFO comtypes.client._generate Could not import comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4: No module named 'comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4'
+2025-12-04 18:28:53,306 INFO comtypes.client._generate # Generating comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4
+2025-12-04 18:28:54,859 INFO comtypes.client._generate # Generating comtypes.gen.SpeechLib
+2025-12-04 18:28:54,930 INFO comtypes.client._generate Could not import comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0: No module named 'comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0'
+2025-12-04 18:28:54,947 INFO comtypes.client._generate # Generating comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0
+2025-12-04 18:28:55,084 INFO comtypes.client._generate # Generating comtypes.gen.stdole
+2025-12-04 18:28:56,872 INFO virtual_teacher.utils.audio_processor Indic TTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpz53cgyxo.wav
+2025-12-04 18:28:56,993 INFO virtual_teacher.main Session started successfully
+2025-12-04 18:52:41,900 INFO virtual_teacher.main Handling follow-up interaction
+2025-12-04 18:52:41,905 INFO virtual_teacher.main Resolving content: subject=Math, chapter=1, source=Chapter
+2025-12-04 18:52:41,912 INFO virtual_teacher.utils.file_manager Detected repo root: C:\AgenticAI\virtual_teacher
+2025-12-04 18:52:41,912 ERROR virtual_teacher.main Content not found
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\main.py", line 285, in follow_up
+    chapter_content = resolve_chapter_content(subject, chapter_number, content_source, pdf_file)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\main.py", line 32, in resolve_chapter_content
+    return file_manager.load_pdf_content(subject, chapter_number)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\file_manager.py", line 35, in load_pdf_content
+    raise FileNotFoundError(
+FileNotFoundError: Content not found: C:\AgenticAI\virtual_teacher\content\math\chapter1.pdf (subject=Math, chapter=1)
+2025-12-04 18:53:41,313 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 18:53:46,892 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 18:53:58,157 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 18:53:58,157 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 18:53:58,173 INFO virtual_teacher.utils.file_manager Detected repo root: C:\AgenticAI\virtual_teacher
+2025-12-04 18:53:58,173 INFO virtual_teacher.utils.file_manager Loading PDF content: C:\AgenticAI\virtual_teacher\content\hindi\chapter1.pdf
+2025-12-04 18:53:58,410 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3459
+2025-12-04 18:53:58,423 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2025-12-04 18:53:59,433 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2025-12-04 18:54:01,506 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2025-12-04 18:54:01,517 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2025-12-04 18:54:01,539 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 18:54:01,553 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 18:54:01,560 INFO virtual_teacher.crew Initialized simple_greeter agent
+2025-12-04 18:54:01,573 INFO virtual_teacher.crew Crew created
+2025-12-04 18:54:01,574 INFO virtual_teacher.main Kicking off greeting task
+2025-12-04 18:54:01,630 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 18:54:03,749 WARNING crewai.events.listeners.tracing.trace_batch_manager Trace batch initialization returned status 401. Continuing without tracing.
+2025-12-04 18:56:26,521 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 18:56:28,843 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2025-12-04 18:56:29,283 INFO comtypes.client._code_cache Imported existing <module 'comtypes.gen' from 'C:\\AgenticAI\\virtual_teacher\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-12-04 18:56:29,288 INFO comtypes.client._code_cache Using writeable comtypes cache directory: 'C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\comtypes\gen'
+2025-12-04 18:56:30,939 INFO virtual_teacher.utils.audio_processor Indic TTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmprro5e38p.mp3
+2025-12-04 18:56:31,085 INFO virtual_teacher.main Session started successfully
+2025-12-04 19:11:31,576 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 19:11:37,286 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 19:11:49,079 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 19:11:49,091 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 19:11:49,111 INFO virtual_teacher.utils.file_manager Detected repo root: C:\AgenticAI\virtual_teacher
+2025-12-04 19:11:49,113 INFO virtual_teacher.utils.file_manager Loading PDF content: C:\AgenticAI\virtual_teacher\content\hindi\chapter1.pdf
+2025-12-04 19:11:49,445 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3459
+2025-12-04 19:11:49,459 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2025-12-04 19:11:50,482 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2025-12-04 19:11:52,645 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2025-12-04 19:11:52,680 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2025-12-04 19:11:52,838 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 19:11:52,909 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 19:11:52,947 INFO virtual_teacher.crew Initialized simple_greeter agent
+2025-12-04 19:11:53,081 INFO virtual_teacher.crew Crew created
+2025-12-04 19:11:53,095 INFO virtual_teacher.main Kicking off greeting task
+2025-12-04 19:11:53,279 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 19:14:15,333 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 19:14:17,653 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2025-12-04 19:14:20,338 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpeuas43c8.mp3
+2025-12-04 19:14:20,351 INFO virtual_teacher.main Session started successfully
+2025-12-04 19:16:09,572 INFO virtual_teacher.main Handling follow-up interaction
+2025-12-04 19:16:09,574 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2025-12-04 19:16:09,576 INFO virtual_teacher.utils.file_manager Detected repo root: C:\AgenticAI\virtual_teacher
+2025-12-04 19:16:09,576 INFO virtual_teacher.utils.file_manager Loading PDF content: C:\AgenticAI\virtual_teacher\content\hindi\chapter1.pdf
+2025-12-04 19:16:09,672 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3459
+2025-12-04 19:16:09,720 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 19:16:09,724 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 19:16:09,805 INFO virtual_teacher.crew Initialized simple_greeter agent
+2025-12-04 19:16:10,245 INFO virtual_teacher.crew Crew created
+2025-12-04 19:16:10,292 INFO virtual_teacher.main Kicking off follow-up task
+2025-12-04 19:16:10,395 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 19:25:30,763 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 19:25:33,101 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 19:27:25,854 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 19:27:28,203 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2025-12-04 19:27:28,229 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 19:28:07,302 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 19:28:09,666 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 19:33:21,549 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 19:33:37,124 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 19:35:11,080 INFO virtual_teacher.main Handling smart first response
+2025-12-04 19:35:11,083 INFO virtual_teacher.main Processing camera document
+2025-12-04 19:35:11,083 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 19:35:11,083 INFO virtual_teacher.utils.document_processor Extracting text from image: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:35:11,083 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:35:12,669 INFO virtual_teacher.utils.document_processor Enhanced image saved: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624_enhanced.png
+2025-12-04 19:35:17,499 ERROR virtual_teacher.utils.document_processor Failed to extract text from image
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 275, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 43, in extract_text_from_image
+    text = pytesseract.image_to_string(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 486, in image_to_string
+    return {
+           ^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 489, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 352, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 280, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+2025-12-04 19:35:17,587 ERROR virtual_teacher.tools.custom_tool Error processing uploaded document
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 275, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 43, in extract_text_from_image
+    text = pytesseract.image_to_string(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 486, in image_to_string
+    return {
+           ^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 489, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 352, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 280, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\tools\custom_tool.py", line 48, in _run
+    extracted_text = processor.extract_text_from_image(file_path)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 54, in extract_text_from_image
+    raise ValueError("Failed to extract text from image")
+ValueError: Failed to extract text from image
+2025-12-04 19:35:17,709 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:35:18,653 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpkq7ylh5x.mp3
+2025-12-04 19:35:18,676 INFO virtual_teacher.main Camera document processed successfully
+2025-12-04 19:40:28,412 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 19:40:33,064 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 19:41:05,784 INFO virtual_teacher.main Handling smart first response
+2025-12-04 19:41:05,785 INFO virtual_teacher.main Processing camera document
+2025-12-04 19:41:05,787 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 19:41:05,787 INFO virtual_teacher.utils.document_processor Extracting text from image: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:41:05,787 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:41:07,517 INFO virtual_teacher.utils.document_processor Enhanced image saved: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624_enhanced.png
+2025-12-04 19:41:09,372 ERROR virtual_teacher.utils.document_processor Failed to extract text from image
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 275, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 43, in extract_text_from_image
+    text = pytesseract.image_to_string(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 486, in image_to_string
+    return {
+           ^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 489, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 352, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 280, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+2025-12-04 19:41:09,376 ERROR virtual_teacher.tools.custom_tool Error processing uploaded document
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 275, in run_tesseract
+    proc = subprocess.Popen(cmd_args, **subprocess_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 43, in extract_text_from_image
+    text = pytesseract.image_to_string(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 486, in image_to_string
+    return {
+           ^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 489, in <lambda>
+    Output.STRING: lambda: run_and_get_output(*args),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 352, in run_and_get_output
+    run_tesseract(**kwargs)
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\pytesseract\pytesseract.py", line 280, in run_tesseract
+    raise TesseractNotFoundError()
+pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\tools\custom_tool.py", line 48, in _run
+    extracted_text = processor.extract_text_from_image(file_path)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 54, in extract_text_from_image
+    raise ValueError("Failed to extract text from image")
+ValueError: Failed to extract text from image
+2025-12-04 19:41:09,399 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:41:10,486 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpirugpknu.mp3
+2025-12-04 19:41:10,525 INFO virtual_teacher.main Camera document processed successfully
+2025-12-04 19:46:11,807 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 19:46:15,529 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 19:46:48,765 INFO virtual_teacher.main Handling smart first response
+2025-12-04 19:46:48,774 INFO virtual_teacher.main Processing camera document
+2025-12-04 19:46:48,778 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 19:46:48,781 INFO virtual_teacher.utils.document_processor Extracting text from image: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:46:48,784 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:46:50,440 INFO virtual_teacher.utils.document_processor Enhanced image saved: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624_enhanced.png
+2025-12-04 19:46:52,852 INFO virtual_teacher.utils.document_processor Image OCR extracted characters: 193
+2025-12-04 19:46:52,865 INFO virtual_teacher.tools.custom_tool Session content stored: C:\Users\PHANEE~1\AppData\Local\Temp\tmpynqp3_7z.txt
+2025-12-04 19:46:52,906 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2025-12-04 19:46:52,930 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:46:57,185 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpviz0jxm1.mp3
+2025-12-04 19:46:57,185 INFO virtual_teacher.main Camera document processed successfully
+2025-12-04 19:46:57,290 ERROR asyncio Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-12-04 19:47:34,925 INFO virtual_teacher.main Handling follow-up interaction
+2025-12-04 19:47:34,934 INFO virtual_teacher.main Processing camera document
+2025-12-04 19:47:34,934 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 19:47:34,934 INFO virtual_teacher.utils.document_processor Extracting text from image: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:47:34,934 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:47:37,187 INFO virtual_teacher.utils.document_processor Enhanced image saved: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624_enhanced.png
+2025-12-04 19:47:39,013 INFO virtual_teacher.utils.document_processor Image OCR extracted characters: 193
+2025-12-04 19:47:39,020 INFO virtual_teacher.tools.custom_tool Session content stored: C:\Users\PHANEE~1\AppData\Local\Temp\tmpxn7rvkoj.txt
+2025-12-04 19:47:39,036 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2025-12-04 19:47:39,045 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:47:43,796 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpx9hj390a.mp3
+2025-12-04 19:47:43,811 INFO virtual_teacher.main Camera document processed successfully
+2025-12-04 19:47:43,831 INFO virtual_teacher.main Answering document question
+2025-12-04 19:47:43,853 ERROR virtual_teacher.tools.custom_tool Error accessing document content for answering
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\tools\custom_tool.py", line 129, in _run
+    content = f.read()
+              ^^^^^^^^
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb0 in position 254: invalid start byte
+2025-12-04 19:47:43,865 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:47:45,568 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpyxrms6s5.mp3
+2025-12-04 19:47:45,583 INFO virtual_teacher.main Answered document question successfully
+2025-12-04 19:53:08,351 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 19:53:12,514 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 19:53:43,233 INFO virtual_teacher.main Handling smart first response
+2025-12-04 19:53:43,235 INFO virtual_teacher.main Processing camera document
+2025-12-04 19:53:43,239 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 19:53:43,241 INFO virtual_teacher.utils.document_processor Extracting text from image: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:53:43,242 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:53:45,311 INFO virtual_teacher.utils.document_processor Enhanced image saved: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624_enhanced.png
+2025-12-04 19:53:47,547 INFO virtual_teacher.utils.document_processor Image OCR extracted characters: 193
+2025-12-04 19:53:47,578 INFO virtual_teacher.tools.custom_tool Session content stored: C:\Users\PHANEE~1\AppData\Local\Temp\tmpr6azhrai.txt
+2025-12-04 19:53:47,580 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2025-12-04 19:53:47,599 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:53:51,843 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmp_otr_7rq.mp3
+2025-12-04 19:53:51,851 INFO virtual_teacher.main Camera document processed successfully
+2025-12-04 19:54:00,616 INFO virtual_teacher.main Handling follow-up interaction
+2025-12-04 19:54:00,617 INFO virtual_teacher.main Processing camera document
+2025-12-04 19:54:00,620 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 19:54:00,622 INFO virtual_teacher.utils.document_processor Extracting text from image: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:54:00,622 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:54:02,421 INFO virtual_teacher.utils.document_processor Enhanced image saved: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624_enhanced.png
+2025-12-04 19:54:04,391 INFO virtual_teacher.utils.document_processor Image OCR extracted characters: 193
+2025-12-04 19:54:04,445 INFO virtual_teacher.tools.custom_tool Session content stored: C:\Users\PHANEE~1\AppData\Local\Temp\tmpvxwlwve_.txt
+2025-12-04 19:54:04,461 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2025-12-04 19:54:04,507 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:54:08,737 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpi56fp6ya.mp3
+2025-12-04 19:54:08,755 INFO virtual_teacher.main Camera document processed successfully
+2025-12-04 19:54:08,803 INFO virtual_teacher.main Answering document question
+2025-12-04 19:54:09,038 INFO virtual_teacher.tools.custom_tool Answered question from document content
+2025-12-04 19:54:09,077 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:54:10,354 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpbc127py_.mp3
+2025-12-04 19:54:10,367 INFO virtual_teacher.main Answered document question successfully
+2025-12-04 19:55:13,073 INFO virtual_teacher.main Handling follow-up interaction
+2025-12-04 19:55:13,073 INFO virtual_teacher.main Processing camera document
+2025-12-04 19:55:13,073 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 19:55:13,079 INFO virtual_teacher.utils.document_processor Extracting text from image: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:55:13,087 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624.png
+2025-12-04 19:55:14,917 INFO virtual_teacher.utils.document_processor Enhanced image saved: C:\Users\Phanees Mudiganti\AppData\Local\Temp\gradio\5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8\Screenshot 2025-12-04 185624_enhanced.png
+2025-12-04 19:55:17,245 INFO virtual_teacher.utils.document_processor Image OCR extracted characters: 193
+2025-12-04 19:55:17,319 INFO virtual_teacher.tools.custom_tool Session content stored: C:\Users\PHANEE~1\AppData\Local\Temp\tmperccey6o.txt
+2025-12-04 19:55:17,349 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2025-12-04 19:55:17,353 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:55:21,120 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmps5awwv3k.mp3
+2025-12-04 19:55:21,151 INFO virtual_teacher.main Camera document processed successfully
+2025-12-04 19:55:21,157 INFO virtual_teacher.main Answering document question
+2025-12-04 19:55:21,169 INFO virtual_teacher.tools.custom_tool Answered question from document content
+2025-12-04 19:55:21,194 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2025-12-04 19:55:23,172 INFO virtual_teacher.utils.audio_processor gTTS audio saved: C:\Users\PHANEE~1\AppData\Local\Temp\tmpkk81qbvn.mp3
+2025-12-04 19:55:23,180 INFO virtual_teacher.main Answered document question successfully
+2025-12-04 20:22:18,933 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 20:22:23,976 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 20:22:52,928 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Camera Document (📱 NEW!)
+2025-12-04 20:22:52,928 INFO virtual_teacher.main Processing camera document
+2025-12-04 20:22:52,928 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2025-12-04 20:22:54,047 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2025-12-04 20:22:56,185 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2025-12-04 20:22:56,200 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2025-12-04 20:22:56,215 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 20:22:56,221 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 20:22:56,237 INFO virtual_teacher.crew Initialized simple_greeter agent
+2025-12-04 20:22:56,262 INFO virtual_teacher.crew Crew created
+2025-12-04 20:22:56,304 ERROR virtual_teacher.main Error processing document
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\task.py", line 657, in interpolate_inputs_and_add_conversation_history
+    self.description = interpolate_only(
+                       ^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\utilities\string_utils.py", line 72, in interpolate_only
+    raise KeyError(
+KeyError: "Template variable 'student_question' not found in inputs dictionary"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\main.py", line 149, in process_camera_document
+    result = crew.kickoff(inputs=inputs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\crew.py", line 686, in kickoff
+    self._interpolate_inputs(inputs)
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\crew.py", line 1374, in _interpolate_inputs
+    task.interpolate_inputs_and_add_conversation_history(
+  File "C:\AgenticAI\virtual_teacher\.venv\Lib\site-packages\crewai\task.py", line 661, in interpolate_inputs_and_add_conversation_history
+    raise ValueError(
+ValueError: Missing required template variable 'Template variable 'student_question' not found in inputs dictionary' in description
+2025-12-04 20:26:24,868 INFO crewai.cli.config Using config path: C:\Users\Phanees Mudiganti\.config\crewai\settings.json
+2025-12-04 20:26:28,803 INFO virtual_teacher.main Virtual Teacher app starting
+2025-12-04 20:27:03,702 INFO virtual_teacher.main Handling smart first response
+2025-12-04 20:27:03,702 INFO virtual_teacher.main Processing camera document
+2025-12-04 20:27:03,702 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2025-12-04 20:27:04,854 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2025-12-04 20:27:06,969 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2025-12-04 20:27:06,992 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2025-12-04 20:27:07,105 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2025-12-04 20:27:07,124 INFO virtual_teacher.crew Initialized document_teacher agent
+2025-12-04 20:27:07,129 INFO virtual_teacher.crew Initialized simple_greeter agent
+2025-12-04 20:27:07,138 INFO virtual_teacher.crew Crew created
+2025-12-04 20:27:07,309 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2025-12-04 20:30:38,192 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2025-12-04 20:30:40,578 INFO virtual_teacher.tools.custom_tool Processing uploaded document: C:UsersPhanees MudigantiAppDataLocalTempgradio5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8Screenshot 2025-12-04 185624.png, ext=.png
+2025-12-04 20:30:40,592 INFO virtual_teacher.utils.document_processor Extracting text from image: C:UsersPhanees MudigantiAppDataLocalTempgradio5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8Screenshot 2025-12-04 185624.png
+2025-12-04 20:30:40,612 INFO virtual_teacher.utils.document_processor Enhancing image quality: C:UsersPhanees MudigantiAppDataLocalTempgradio5e1e09de5f6b0610f2a79b04d61ecbfdc610551599820c9676e9c4f9c34108c8Screenshot 2025-12-04 185624.png
+2025-12-04 20:30:40,658 ERROR virtual_teacher.utils.document_processor Failed to extract text from image
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 42, in extract_text_from_image
+    enhanced_path = self.enhance_image_quality(image_path)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 29, in enhance_image_quality
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cv2.error: OpenCV(4.11.0) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:199: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
+
+2025-12-04 20:30:40,760 ERROR virtual_teacher.tools.custom_tool Error processing uploaded document
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 42, in extract_text_from_image
+    enhanced_path = self.enhance_image_quality(image_path)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 29, in enhance_image_quality
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cv2.error: OpenCV(4.11.0) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:199: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\tools\custom_tool.py", line 83, in _run
+    extracted_text = processor.extract_text_from_image(file_path)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AgenticAI\virtual_teacher\src\virtual_teacher\utils\document_processor.py", line 106, in extract_text_from_image
+    raise ValueError("Failed to extract text from image")
+ValueError: Failed to extract text from image
+2025-12-04 20:30:40,942 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-01-22 10:31:26,645 INFO crewai.cli.config Using config path: /root/.config/crewai/settings.json
+2026-01-22 10:33:12,329 INFO virtual_teacher.main Virtual Teacher app starting
+2026-01-22 10:38:39,091 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Camera Document (📱 NEW!)
+2026-01-22 10:38:39,108 INFO virtual_teacher.main Processing camera document
+2026-01-22 10:38:39,124 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2026-01-22 10:38:39,247 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2026-01-22 10:38:39,288 ERROR virtual_teacher.llm.llm_manager Error ensuring model qwen2.5:7b-instruct is available: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-01-22 10:38:39,289 WARNING virtual_teacher.llm.llm_manager Failed to initialize fallback model qwen2.5:7b-instruct: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-01-22 10:38:39,293 ERROR virtual_teacher.llm.llm_manager Error ensuring model llama3.1:8b is available: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-01-22 10:38:39,295 WARNING virtual_teacher.llm.llm_manager Failed to initialize primary model llama3.1:8b: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-01-22 10:38:39,566 ERROR crewai.utilities.llm_utils Error instantiating LLM from environment/fallback: ImportError: Error importing native provider: OPENAI_API_KEY is required
+2026-01-22 10:38:39,567 ERROR virtual_teacher.main Error processing document
+Traceback (most recent call last):
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llm.py", line 390, in __new__
+    Self, native_class(model=model_string, provider=provider, **kwargs_copy)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llms/providers/openai/completion.py", line 95, in __init__
+    client_config = self._get_client_params()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llms/providers/openai/completion.py", line 124, in _get_client_params
+    raise ValueError("OPENAI_API_KEY is required")
+ValueError: OPENAI_API_KEY is required
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/c/AgenticAI/virtual_teacher/src/virtual_teacher/main.py", line 138, in process_camera_document
+    vt = VirtualTeacher()
+         ^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 252, in __call__
+    CrewBaseMeta._initialize_crew_instance(instance, cls)
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 267, in _initialize_crew_instance
+    instance.map_all_task_variables()
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 663, in map_all_task_variables
+    self._map_task_variables(
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 711, in _map_task_variables
+    self.tasks_config[task_name]["agent"] = agents[agent_name]()
+                                            ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/utils.py", line 71, in wrapper
+    result = meth(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/src/virtual_teacher/crew.py", line 22, in chapter_teacher
+    agent = Agent(
+            ^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/pydantic/main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/agent/internal/meta.py", line 58, in post_init_setup_with_extensions
+    result = original_func(self)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/agent/core.py", line 225, in post_init_setup
+    self.llm = create_llm(self.llm)
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/utilities/llm_utils.py", line 36, in create_llm
+    return _llm_via_environment_or_fallback()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/utilities/llm_utils.py", line 182, in _llm_via_environment_or_fallback
+    raise e
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/utilities/llm_utils.py", line 177, in _llm_via_environment_or_fallback
+    return LLM(**llm_params)
+           ^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llm.py", line 395, in __new__
+    raise ImportError(f"Error importing native provider: {e}") from e
+ImportError: Error importing native provider: OPENAI_API_KEY is required
+2026-02-28 15:58:14,702 INFO crewai.cli.config Using config path: /root/.config/crewai/settings.json
+2026-02-28 16:00:49,791 INFO virtual_teacher.main Virtual Teacher app starting
+2026-02-28 16:02:06,849 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Camera Document (📱 NEW!)
+2026-02-28 16:02:06,859 INFO virtual_teacher.main Processing camera document
+2026-02-28 16:02:06,860 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2026-02-28 16:02:06,922 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2026-02-28 16:02:06,925 ERROR virtual_teacher.llm.llm_manager Error ensuring model qwen2.5:7b-instruct is available: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-02-28 16:02:06,927 WARNING virtual_teacher.llm.llm_manager Failed to initialize fallback model qwen2.5:7b-instruct: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-02-28 16:02:06,930 ERROR virtual_teacher.llm.llm_manager Error ensuring model llama3.1:8b is available: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-02-28 16:02:06,931 WARNING virtual_teacher.llm.llm_manager Failed to initialize primary model llama3.1:8b: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-02-28 16:02:07,157 ERROR crewai.utilities.llm_utils Error instantiating LLM from environment/fallback: ImportError: Error importing native provider: OPENAI_API_KEY is required
+2026-02-28 16:02:07,158 ERROR virtual_teacher.main Error processing document
+Traceback (most recent call last):
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llm.py", line 390, in __new__
+    Self, native_class(model=model_string, provider=provider, **kwargs_copy)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llms/providers/openai/completion.py", line 95, in __init__
+    client_config = self._get_client_params()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llms/providers/openai/completion.py", line 124, in _get_client_params
+    raise ValueError("OPENAI_API_KEY is required")
+ValueError: OPENAI_API_KEY is required
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/c/AgenticAI/virtual_teacher/src/virtual_teacher/main.py", line 138, in process_camera_document
+    vt = VirtualTeacher()
+         ^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 252, in __call__
+    CrewBaseMeta._initialize_crew_instance(instance, cls)
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 267, in _initialize_crew_instance
+    instance.map_all_task_variables()
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 663, in map_all_task_variables
+    self._map_task_variables(
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/crew_base.py", line 711, in _map_task_variables
+    self.tasks_config[task_name]["agent"] = agents[agent_name]()
+                                            ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/project/utils.py", line 71, in wrapper
+    result = meth(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/src/virtual_teacher/crew.py", line 22, in chapter_teacher
+    agent = Agent(
+            ^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/pydantic/main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/agent/internal/meta.py", line 58, in post_init_setup_with_extensions
+    result = original_func(self)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/agent/core.py", line 225, in post_init_setup
+    self.llm = create_llm(self.llm)
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/utilities/llm_utils.py", line 36, in create_llm
+    return _llm_via_environment_or_fallback()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/utilities/llm_utils.py", line 182, in _llm_via_environment_or_fallback
+    raise e
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/utilities/llm_utils.py", line 177, in _llm_via_environment_or_fallback
+    return LLM(**llm_params)
+           ^^^^^^^^^^^^^^^^^
+  File "/mnt/c/AgenticAI/virtual_teacher/.venv/lib/python3.12/site-packages/crewai/llm.py", line 395, in __new__
+    raise ImportError(f"Error importing native provider: {e}") from e
+ImportError: Error importing native provider: OPENAI_API_KEY is required
+2026-02-28 16:24:25,008 INFO crewai.cli.config Using config path: /root/.config/crewai/settings.json
+2026-02-28 16:27:19,531 INFO virtual_teacher.main Virtual Teacher app starting
+2026-02-28 16:29:27,334 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Camera Document (📱 NEW!)
+2026-02-28 16:29:27,349 INFO virtual_teacher.main Processing camera document
+2026-02-28 16:29:27,351 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2026-02-28 16:29:27,417 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2026-02-28 16:29:27,432 INFO virtual_teacher.llm.llm_manager Pulling model qwen2.5:7b-instruct...
+2026-02-28 16:33:04,459 INFO virtual_teacher.llm.llm_manager Successfully pulled qwen2.5:7b-instruct
+2026-02-28 16:33:04,467 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2026-02-28 16:33:04,476 INFO virtual_teacher.llm.llm_manager Pulling model llama3.1:8b...
+2026-02-28 16:36:49,731 INFO virtual_teacher.llm.llm_manager Successfully pulled llama3.1:8b
+2026-02-28 16:36:49,733 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2026-02-28 16:36:49,784 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-02-28 16:36:49,804 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-02-28 16:36:49,821 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-02-28 16:36:49,879 INFO virtual_teacher.crew Crew created
+2026-02-28 16:36:49,953 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-02-28 16:39:28,508 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-02-28 16:39:28,915 INFO virtual_teacher.tools.custom_tool Processing uploaded document: /tmp/gradio/45eee95fb4dd621ec7e60ee72fc3bed06a215f757db9381d4f10a07276aae1c6/Hindi-Chapter1.png, ext=.png
+2026-02-28 16:39:28,929 INFO virtual_teacher.utils.document_processor Extracting text from image: /tmp/gradio/45eee95fb4dd621ec7e60ee72fc3bed06a215f757db9381d4f10a07276aae1c6/Hindi-Chapter1.png
+2026-02-28 16:39:28,930 INFO virtual_teacher.utils.document_processor Enhancing image quality: /tmp/gradio/45eee95fb4dd621ec7e60ee72fc3bed06a215f757db9381d4f10a07276aae1c6/Hindi-Chapter1.png
+2026-02-28 16:39:29,329 INFO virtual_teacher.utils.document_processor Enhanced image saved: /tmp/gradio/45eee95fb4dd621ec7e60ee72fc3bed06a215f757db9381d4f10a07276aae1c6/Hindi-Chapter1_enhanced.png
+2026-02-28 16:39:29,494 WARNING virtual_teacher.utils.document_processor Hindi OCR failed: tesseract is not installed or it's not in your PATH. See README file for more information.
+2026-02-28 16:39:29,605 WARNING virtual_teacher.utils.document_processor English OCR failed: tesseract is not installed or it's not in your PATH. See README file for more information.
+2026-02-28 16:39:29,692 WARNING virtual_teacher.utils.document_processor Combined OCR failed: tesseract is not installed or it's not in your PATH. See README file for more information.
+2026-02-28 16:39:29,693 INFO virtual_teacher.utils.document_processor Final image OCR result: 0 characters
+2026-02-28 16:39:29,705 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-02-28 16:39:52,080 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-02-28 16:39:52,346 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-02-28 16:40:18,305 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-02-28 16:40:18,556 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 06:33:43,206 INFO crewai.cli.config Using config path: /root/.config/crewai/settings.json
+2026-03-01 06:36:28,482 INFO virtual_teacher.main Virtual Teacher app starting
+2026-03-01 06:46:37,944 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Chapter
+2026-03-01 06:46:37,975 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2026-03-01 06:46:38,008 INFO virtual_teacher.utils.file_manager Detected repo root: /mnt/c/AgenticAI/virtual_teacher
+2026-03-01 06:46:38,017 INFO virtual_teacher.utils.file_manager Loading PDF content: /mnt/c/AgenticAI/virtual_teacher/content/hindi/chapter1.pdf
+2026-03-01 06:46:38,669 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3459
+2026-03-01 06:46:38,671 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2026-03-01 06:46:38,760 INFO virtual_teacher.llm.llm_manager Ollama client initialized with base_url: http://localhost:11434
+2026-03-01 06:46:38,769 INFO virtual_teacher.llm.llm_manager Initialized fallback model: qwen2.5:7b-instruct
+2026-03-01 06:46:38,773 INFO virtual_teacher.llm.llm_manager Initialized primary model: llama3.1:8b
+2026-03-01 06:46:38,841 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-01 06:46:38,872 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-01 06:46:38,914 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-01 06:46:38,992 INFO virtual_teacher.crew Crew created
+2026-03-01 06:46:38,995 INFO virtual_teacher.main Kicking off greeting task
+2026-03-01 06:46:39,088 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 06:48:33,555 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 06:48:33,866 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2026-03-01 06:48:36,119 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpuonq_cp9.mp3
+2026-03-01 06:48:36,122 INFO virtual_teacher.main Session started successfully
+2026-03-01 06:49:05,131 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-01 06:49:05,137 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2026-03-01 06:49:05,179 INFO virtual_teacher.utils.file_manager Detected repo root: /mnt/c/AgenticAI/virtual_teacher
+2026-03-01 06:49:05,189 INFO virtual_teacher.utils.file_manager Loading PDF content: /mnt/c/AgenticAI/virtual_teacher/content/hindi/chapter1.pdf
+2026-03-01 06:49:05,756 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3459
+2026-03-01 06:49:05,817 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-01 06:49:05,849 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-01 06:49:05,885 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-01 06:49:05,952 INFO virtual_teacher.crew Crew created
+2026-03-01 06:49:05,954 INFO virtual_teacher.main Kicking off follow-up task
+2026-03-01 06:49:06,015 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 06:58:01,702 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 06:58:02,033 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 06:59:43,729 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 06:59:44,017 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2026-03-01 06:59:44,040 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 07:00:15,286 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 07:00:15,525 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 07:03:53,853 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 07:03:54,147 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2026-03-01 07:03:54,665 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpd7oaj_n6.mp3
+2026-03-01 07:03:54,667 INFO virtual_teacher.main Follow-up handled successfully
+2026-03-01 07:05:10,654 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-01 07:05:10,663 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2026-03-01 07:05:10,702 INFO virtual_teacher.utils.file_manager Detected repo root: /mnt/c/AgenticAI/virtual_teacher
+2026-03-01 07:05:10,713 INFO virtual_teacher.utils.file_manager Loading PDF content: /mnt/c/AgenticAI/virtual_teacher/content/hindi/chapter1.pdf
+2026-03-01 07:05:11,325 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3459
+2026-03-01 07:05:11,402 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-01 07:05:11,434 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-01 07:05:11,471 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-01 07:05:11,570 INFO virtual_teacher.crew Crew created
+2026-03-01 07:05:11,573 INFO virtual_teacher.main Kicking off follow-up task
+2026-03-01 07:05:11,686 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 07:10:48,036 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 07:10:48,380 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2026-03-01 07:10:48,422 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 07:12:04,073 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 07:12:04,886 INFO virtual_teacher.tools.custom_tool Recording unknown question
+2026-03-01 07:12:04,940 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 07:12:42,614 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 07:12:42,926 INFO LiteLLM 
+LiteLLM completion() model= llama3.1:8b; provider = ollama
+2026-03-01 07:16:39,719 INFO LiteLLM Wrapper: Completed Call, calling success_handler
+2026-03-01 07:16:39,982 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2026-03-01 07:16:41,759 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpo8svl2te.mp3
+2026-03-01 07:16:41,762 INFO virtual_teacher.main Follow-up handled successfully
