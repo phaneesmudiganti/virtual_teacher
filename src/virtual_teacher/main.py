@@ -658,7 +658,9 @@ def run():
             - Getting explanations in simple words
             """)
 
-    teacher.launch(inbrowser=True, share=False)
+    server_name = os.getenv("GRADIO_SERVER_NAME", "0.0.0.0")
+    server_port = int(os.getenv("PORT", os.getenv("GRADIO_SERVER_PORT", "7860")))
+    teacher.launch(server_name=server_name, server_port=server_port, share=False, inbrowser=False)
 
 
 if __name__ == "__main__":
