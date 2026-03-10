@@ -25,7 +25,7 @@ class VirtualTeacher:
                 RecordUnknownQuestionTool(),
                 RecordUserDetailsTool()
             ],
-            llm=self.llm_manager.get_llm("primary"),  # Use Ollama LLM
+            llm=self.llm_manager.get_llm("primary"),  # Use OpenAI LLM
             verbose=False,
             max_iter=3  # Prevent infinite loops
         )
@@ -56,7 +56,7 @@ class VirtualTeacher:
                 ProcessUploadedDocumentTool(),
                 AnswerFromDocumentTool()
             ],
-            llm=self.llm_manager.get_llm("primary"),  # Use Ollama LLM
+            llm=self.llm_manager.get_llm("primary"),  # Use OpenAI LLM
             verbose=False,
             max_iter=5  # Prevent infinite loops
         )

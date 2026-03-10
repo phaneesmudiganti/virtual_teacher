@@ -1,12 +1,17 @@
 llms:
   active: start
   scale:
-    fallback: llama3.1:70b-instruct
-    high_performance: qwen2.5:32b-instruct
-    primary: mixtral:8x7b-instruct
+    fallback: gpt-4.1
+    high_performance: gpt-4.1
+    primary: gpt-4o
   start:
-    fallback: qwen2.5:7b-instruct
-    primary: llama3.1:8b
-ollama:
-  base_url: http://localhost:11434
+    fallback: gpt-4o
+    primary: gpt-4o-mini
+openai:
+  api_key_env: OPENAI_API_KEY
+  base_url: null
+  organization: null
+  project: null
   timeout: 120
+  temperature: 0.2
+  max_retries: 2

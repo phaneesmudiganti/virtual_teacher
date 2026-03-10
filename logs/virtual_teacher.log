@@ -927,3 +927,177 @@ LiteLLM completion() model= llama3.1:8b; provider = ollama
 2026-03-01 07:16:39,982 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
 2026-03-01 07:16:41,759 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpo8svl2te.mp3
 2026-03-01 07:16:41,762 INFO virtual_teacher.main Follow-up handled successfully
+2026-03-10 05:31:41,290 INFO crewai.cli.config Using config path: /home/purushottamapmudig/.config/crewai/settings.json
+2026-03-10 05:31:52,809 INFO virtual_teacher.main Virtual Teacher app starting
+2026-03-10 05:39:38,124 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Chapter
+2026-03-10 05:39:38,131 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2026-03-10 05:39:38,145 INFO virtual_teacher.utils.file_manager Detected repo root: /mnt/c/ERS/Agents/virtual_teacher
+2026-03-10 05:39:38,150 INFO virtual_teacher.utils.file_manager Loading PDF content: /mnt/c/ERS/Agents/virtual_teacher/content/hindi/chapter1.pdf
+2026-03-10 05:39:38,878 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3395
+2026-03-10 05:39:38,879 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2026-03-10 05:39:39,150 INFO virtual_teacher.llm.llm_manager Initialized fallback model: gpt-4o
+2026-03-10 05:39:39,187 INFO virtual_teacher.llm.llm_manager Initialized primary model: gpt-4o-mini
+2026-03-10 05:39:39,244 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-10 05:39:39,263 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-10 05:39:39,281 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-10 05:39:39,322 INFO virtual_teacher.crew Crew created
+2026-03-10 05:39:39,323 INFO virtual_teacher.main Kicking off greeting task
+2026-03-10 05:39:40,541 WARNING crewai.events.listeners.tracing.trace_batch_manager Error initializing trace batch: HTTPSConnectionPool(host='app.crewai.com', port=443): Max retries exceeded with url: /crewai_plus/api/v1/tracing/ephemeral/batches (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)'))). Continuing without tracing.
+2026-03-10 05:39:48,758 INFO root OpenAI API usage: {'prompt_tokens': 569, 'completion_tokens': 42, 'total_tokens': 611}
+2026-03-10 05:39:48,791 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2026-03-10 05:39:49,409 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmp4k6lito_.mp3
+2026-03-10 05:39:49,412 INFO virtual_teacher.main Session started successfully
+2026-03-10 05:40:18,393 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 05:40:18,396 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2026-03-10 05:40:18,421 INFO virtual_teacher.utils.file_manager Detected repo root: /mnt/c/ERS/Agents/virtual_teacher
+2026-03-10 05:40:18,433 INFO virtual_teacher.utils.file_manager Loading PDF content: /mnt/c/ERS/Agents/virtual_teacher/content/hindi/chapter1.pdf
+2026-03-10 05:40:16,535 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3395
+2026-03-10 05:40:16,566 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-10 05:40:16,582 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-10 05:40:16,591 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-10 05:40:16,629 INFO virtual_teacher.crew Crew created
+2026-03-10 05:40:16,631 INFO virtual_teacher.main Kicking off follow-up task
+2026-03-10 05:40:17,375 WARNING crewai.events.listeners.tracing.trace_batch_manager Error initializing trace batch: HTTPSConnectionPool(host='app.crewai.com', port=443): Max retries exceeded with url: /crewai_plus/api/v1/tracing/ephemeral/batches (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)'))). Continuing without tracing.
+2026-03-10 05:40:30,462 INFO root OpenAI API usage: {'prompt_tokens': 2215, 'completion_tokens': 299, 'total_tokens': 2514}
+2026-03-10 05:40:30,497 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2026-03-10 05:40:46,164 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpfapyt1p4.mp3
+2026-03-10 05:40:46,165 INFO virtual_teacher.main Follow-up handled successfully
+2026-03-10 05:42:59,631 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 05:42:59,639 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2026-03-10 05:42:59,666 INFO virtual_teacher.utils.file_manager Detected repo root: /mnt/c/ERS/Agents/virtual_teacher
+2026-03-10 05:42:59,671 INFO virtual_teacher.utils.file_manager Loading PDF content: /mnt/c/ERS/Agents/virtual_teacher/content/hindi/chapter1.pdf
+2026-03-10 05:43:00,211 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3395
+2026-03-10 05:43:00,242 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-10 05:43:00,263 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-10 05:43:00,273 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-10 05:43:00,307 INFO virtual_teacher.crew Crew created
+2026-03-10 05:43:00,308 INFO virtual_teacher.main Kicking off follow-up task
+2026-03-10 05:43:01,060 WARNING crewai.events.listeners.tracing.trace_batch_manager Error initializing trace batch: HTTPSConnectionPool(host='app.crewai.com', port=443): Max retries exceeded with url: /crewai_plus/api/v1/tracing/ephemeral/batches (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)'))). Continuing without tracing.
+2026-03-10 05:43:08,430 INFO root OpenAI API usage: {'prompt_tokens': 2225, 'completion_tokens': 185, 'total_tokens': 2410}
+2026-03-10 05:43:08,454 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2026-03-10 05:43:20,459 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpushs43tw.mp3
+2026-03-10 05:43:20,461 INFO virtual_teacher.main Follow-up handled successfully
+2026-03-10 05:44:31,454 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 05:44:31,458 INFO virtual_teacher.main Resolving content: subject=Hindi, chapter=1, source=Chapter
+2026-03-10 05:44:31,478 INFO virtual_teacher.utils.file_manager Detected repo root: /mnt/c/ERS/Agents/virtual_teacher
+2026-03-10 05:44:31,490 INFO virtual_teacher.utils.file_manager Loading PDF content: /mnt/c/ERS/Agents/virtual_teacher/content/hindi/chapter1.pdf
+2026-03-10 05:44:31,990 INFO virtual_teacher.utils.file_manager Loaded PDF content characters: 3395
+2026-03-10 05:44:32,015 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-10 05:44:32,033 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-10 05:44:32,046 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-10 05:44:32,076 INFO virtual_teacher.crew Crew created
+2026-03-10 05:44:32,079 INFO virtual_teacher.main Kicking off follow-up task
+2026-03-10 05:44:32,765 WARNING crewai.events.listeners.tracing.trace_batch_manager Error initializing trace batch: HTTPSConnectionPool(host='app.crewai.com', port=443): Max retries exceeded with url: /crewai_plus/api/v1/tracing/ephemeral/batches (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)'))). Continuing without tracing.
+2026-03-10 05:44:40,156 INFO root OpenAI API usage: {'prompt_tokens': 2222, 'completion_tokens': 502, 'total_tokens': 2724}
+2026-03-10 05:44:40,198 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=hi
+2026-03-10 05:45:00,585 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpwiikjf36.mp3
+2026-03-10 05:45:00,588 INFO virtual_teacher.main Follow-up handled successfully
+2026-03-10 06:00:18,129 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 06:00:18,134 INFO virtual_teacher.main Answering document question
+2026-03-10 06:00:18,139 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 06:00:19,047 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpft9s7kse.mp3
+2026-03-10 06:00:19,049 INFO virtual_teacher.main Answered document question successfully
+2026-03-10 06:00:47,402 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 06:01:07,661 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 06:01:07,663 INFO virtual_teacher.main Answering document question
+2026-03-10 06:01:07,667 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 06:01:08,526 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpmivsgb2u.mp3
+2026-03-10 06:01:08,528 INFO virtual_teacher.main Answered document question successfully
+2026-03-10 06:10:58,317 INFO crewai.cli.config Using config path: /home/purushottamapmudig/.config/crewai/settings.json
+2026-03-10 06:11:00,259 INFO virtual_teacher.main Virtual Teacher app starting
+2026-03-10 07:08:54,325 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Camera Document (📱 NEW!)
+2026-03-10 07:08:54,346 INFO virtual_teacher.tools.custom_tool Processing uploaded document: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png, ext=.png
+2026-03-10 07:08:54,348 INFO virtual_teacher.utils.document_processor Extracting text from image: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 07:08:54,350 INFO virtual_teacher.utils.document_processor Enhancing image quality: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 07:08:54,706 INFO virtual_teacher.utils.document_processor Enhanced image saved: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1_enhanced.png
+2026-03-10 07:08:55,676 INFO virtual_teacher.utils.document_processor Hindi OCR extracted 491 characters
+2026-03-10 07:08:56,255 INFO virtual_teacher.utils.document_processor English OCR extracted 298 characters
+2026-03-10 07:08:57,355 INFO virtual_teacher.utils.document_processor Combined OCR extracted 469 characters
+2026-03-10 07:08:57,357 INFO virtual_teacher.utils.document_processor Final image OCR result: 491 characters
+2026-03-10 07:08:57,360 INFO virtual_teacher.tools.custom_tool Session content stored: /tmp/tmpbhe6rg5f.txt
+2026-03-10 07:08:57,363 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2026-03-10 07:08:57,364 INFO virtual_teacher.main Processing camera document
+2026-03-10 07:08:57,366 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2026-03-10 07:08:57,505 INFO virtual_teacher.llm.llm_manager Initialized fallback model: gpt-4o
+2026-03-10 07:08:57,528 INFO virtual_teacher.llm.llm_manager Initialized primary model: gpt-4o-mini
+2026-03-10 07:08:57,582 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-10 07:08:57,595 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-10 07:08:57,607 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-10 07:08:57,648 INFO virtual_teacher.crew Crew created
+2026-03-10 07:08:59,002 WARNING crewai.events.listeners.tracing.trace_batch_manager Error initializing trace batch: HTTPSConnectionPool(host='app.crewai.com', port=443): Max retries exceeded with url: /crewai_plus/api/v1/tracing/ephemeral/batches (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)'))). Continuing without tracing.
+2026-03-10 07:09:02,769 INFO root OpenAI API usage: {'prompt_tokens': 1059, 'completion_tokens': 66, 'total_tokens': 1125}
+2026-03-10 07:09:02,779 INFO virtual_teacher.tools.custom_tool Processing uploaded document: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png, ext=.png
+2026-03-10 07:09:02,786 INFO virtual_teacher.utils.document_processor Extracting text from image: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 07:09:02,789 INFO virtual_teacher.utils.document_processor Enhancing image quality: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 07:09:02,947 INFO virtual_teacher.utils.document_processor Enhanced image saved: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1_enhanced.png
+2026-03-10 07:09:03,660 INFO virtual_teacher.utils.document_processor Hindi OCR extracted 491 characters
+2026-03-10 07:09:04,226 INFO virtual_teacher.utils.document_processor English OCR extracted 298 characters
+2026-03-10 07:09:05,298 INFO virtual_teacher.utils.document_processor Combined OCR extracted 469 characters
+2026-03-10 07:09:05,299 INFO virtual_teacher.utils.document_processor Final image OCR result: 491 characters
+2026-03-10 07:09:05,301 INFO virtual_teacher.tools.custom_tool Session content stored: /tmp/tmp0ot_fvdl.txt
+2026-03-10 07:09:05,303 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2026-03-10 07:09:05,320 INFO root OpenAI API usage: {'prompt_tokens': 1222, 'completion_tokens': 101, 'total_tokens': 1323}
+2026-03-10 07:09:05,371 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 07:09:11,677 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpwoyw8pk1.mp3
+2026-03-10 07:09:11,679 INFO virtual_teacher.main Camera document processed successfully
+2026-03-10 07:09:51,539 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 07:09:51,545 INFO virtual_teacher.main Answering document question
+2026-03-10 07:09:51,568 INFO virtual_teacher.tools.custom_tool Answered question from document content
+2026-03-10 07:09:51,570 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 07:09:54,611 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmp723jh1_2.mp3
+2026-03-10 07:09:54,612 INFO virtual_teacher.main Answered document question successfully
+2026-03-10 07:10:29,464 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 07:10:29,468 INFO virtual_teacher.main Answering document question
+2026-03-10 07:10:29,471 INFO virtual_teacher.tools.custom_tool Answered question from document content
+2026-03-10 07:10:29,473 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 07:10:33,287 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpamh66myr.mp3
+2026-03-10 07:10:33,289 INFO virtual_teacher.main Answered document question successfully
+2026-03-10 07:11:02,763 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 07:11:02,767 INFO virtual_teacher.main Answering document question
+2026-03-10 07:11:02,772 INFO virtual_teacher.tools.custom_tool Answered question from document content
+2026-03-10 07:11:02,776 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 07:11:05,460 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpy_5ynr8k.mp3
+2026-03-10 07:11:05,461 INFO virtual_teacher.main Answered document question successfully
+2026-03-10 07:12:02,653 INFO virtual_teacher.main Handling follow-up interaction
+2026-03-10 07:12:02,657 INFO virtual_teacher.main Answering document question
+2026-03-10 07:12:02,662 INFO virtual_teacher.tools.custom_tool Answered question from document content
+2026-03-10 07:12:02,666 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 07:12:03,435 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmpy3g2f0dv.mp3
+2026-03-10 07:12:03,437 INFO virtual_teacher.main Answered document question successfully
+2026-03-10 07:41:22,222 INFO crewai.cli.config Using config path: /home/purushottamapmudig/.config/crewai/settings.json
+2026-03-10 07:41:25,186 INFO virtual_teacher.main Virtual Teacher app starting
+2026-03-10 08:44:34,342 INFO virtual_teacher.main Starting session: subject=Hindi, chapter=1, source=Camera Document (📱 NEW!)
+2026-03-10 08:44:34,351 INFO virtual_teacher.tools.custom_tool Processing uploaded document: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png, ext=.png
+2026-03-10 08:44:34,352 INFO virtual_teacher.utils.document_processor Extracting text from image: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 08:44:34,355 INFO virtual_teacher.utils.document_processor Enhancing image quality: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 08:44:34,656 INFO virtual_teacher.utils.document_processor Enhanced image saved: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1_enhanced.png
+2026-03-10 08:44:35,505 INFO virtual_teacher.utils.document_processor Hindi OCR extracted 491 characters
+2026-03-10 08:44:36,097 INFO virtual_teacher.utils.document_processor English OCR extracted 298 characters
+2026-03-10 08:44:37,152 INFO virtual_teacher.utils.document_processor Combined OCR extracted 469 characters
+2026-03-10 08:44:37,153 INFO virtual_teacher.utils.document_processor Final image OCR result: 491 characters
+2026-03-10 08:44:37,154 INFO virtual_teacher.tools.custom_tool Session content stored: /tmp/tmp0vgvbhzp.txt
+2026-03-10 08:44:37,155 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2026-03-10 08:44:37,156 INFO virtual_teacher.main Processing camera document
+2026-03-10 08:44:37,157 INFO virtual_teacher.llm.llm_manager Loading LLM config from config/llm_config.yaml
+2026-03-10 08:44:37,266 INFO virtual_teacher.llm.llm_manager Initialized fallback model: gpt-4o
+2026-03-10 08:44:37,290 INFO virtual_teacher.llm.llm_manager Initialized primary model: gpt-4o-mini
+2026-03-10 08:44:37,319 INFO virtual_teacher.crew Initialized chapter_teacher agent
+2026-03-10 08:44:37,329 INFO virtual_teacher.crew Initialized document_teacher agent
+2026-03-10 08:44:37,339 INFO virtual_teacher.crew Initialized simple_greeter agent
+2026-03-10 08:44:37,373 INFO virtual_teacher.crew Crew created
+2026-03-10 08:44:38,834 WARNING crewai.events.listeners.tracing.trace_batch_manager Error initializing trace batch: HTTPSConnectionPool(host='app.crewai.com', port=443): Max retries exceeded with url: /crewai_plus/api/v1/tracing/ephemeral/batches (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)'))). Continuing without tracing.
+2026-03-10 08:44:47,953 INFO root OpenAI API usage: {'prompt_tokens': 1594, 'completion_tokens': 476, 'total_tokens': 2070}
+2026-03-10 08:44:47,957 INFO virtual_teacher.tools.custom_tool Processing uploaded document: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png, ext=.png
+2026-03-10 08:44:47,969 INFO virtual_teacher.utils.document_processor Extracting text from image: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 08:44:47,970 INFO virtual_teacher.utils.document_processor Enhancing image quality: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1.png
+2026-03-10 08:44:48,141 INFO virtual_teacher.utils.document_processor Enhanced image saved: /tmp/gradio/afa80c47a40ac514aded2ef507ce7a402eed737d031ba9097d192e35b413c7c9/Hindi-Chapter1_enhanced.png
+2026-03-10 08:44:48,806 INFO virtual_teacher.utils.document_processor Hindi OCR extracted 491 characters
+2026-03-10 08:44:49,335 INFO virtual_teacher.utils.document_processor English OCR extracted 298 characters
+2026-03-10 08:44:50,375 INFO virtual_teacher.utils.document_processor Combined OCR extracted 469 characters
+2026-03-10 08:44:50,376 INFO virtual_teacher.utils.document_processor Final image OCR result: 491 characters
+2026-03-10 08:44:50,377 INFO virtual_teacher.tools.custom_tool Session content stored: /tmp/tmphee2sl6q.txt
+2026-03-10 08:44:50,378 INFO virtual_teacher.tools.custom_tool Uploaded document processed successfully
+2026-03-10 08:44:58,189 INFO root OpenAI API usage: {'prompt_tokens': 2272, 'completion_tokens': 359, 'total_tokens': 2631}
+2026-03-10 08:44:58,225 INFO virtual_teacher.utils.audio_processor Generating TTS, lang=en
+2026-03-10 08:45:11,621 INFO virtual_teacher.utils.audio_processor gTTS audio saved: /tmp/tmp1aokdbt7.mp3
+2026-03-10 08:45:11,623 INFO virtual_teacher.main Camera document processed successfully

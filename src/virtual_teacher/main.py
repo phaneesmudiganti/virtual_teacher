@@ -15,6 +15,41 @@ logger = logging.getLogger(__name__)
 audio_processor = AudioProcessor()
 file_manager = FileManager()
 
+def coerce_file_path(file_input):
+    """Normalize gradio file input into a filesystem path string."""
+    if not file_input:
+        return None
+    if isinstance(file_input, (list, tuple)) and file_input:
+        file_input = file_input[0]
+    if isinstance(file_input, dict):
+        return file_input.get("path") or file_input.get("name") or file_input.get("orig_name")
+    return str(file_input)
+
+def is_tool_error_response(text: str) -> bool:
+    if not text:
+        return True
+    error_markers = (
+        "I can only help",
+        "couldn't extract any text",
+        "encountered an error",
+        "Please upload",
+    )
+    return any(marker in text for marker in error_markers)
+
+def read_session_content() -> str:
+    session_content_path = os.environ.get('CURRENT_SESSION_CONTENT')
+    if not session_content_path or not os.path.exists(session_content_path):
+        return ""
+    try:
+        with open(session_content_path, 'r', encoding='utf-8', errors='replace') as f:
+            content = f.read()
+        if "CONTENT_TYPE:" in content:
+            return content.split('\n\n', 1)[1] if '\n\n' in content else content
+        return content
+    except Exception:
+        logger.exception("Failed to read session content")
+        return ""
+
 def resolve_chapter_content(subject: str, chapter_number: int, content_source: str, pdf_file: str | Path | None) -> str:
     """
     Returns the chapter content based on selected content_source.
@@ -164,12 +199,20 @@ def clean_response_text(raw_response: str) -> str:
     return cleaned
 
 
-def process_camera_document(pdf_file, student_question=""):
+def process_camera_document(subject, pdf_file, student_question=""):
     """Process camera-captured or uploaded document using OCR"""
-    if not pdf_file:
+    pdf_path = coerce_file_path(pdf_file)
+    if not pdf_path:
         return "Please upload a document first!", None
 
     try:
+        # Ensure the document is processed and stored for follow-ups
+        processor_tool = ProcessUploadedDocumentTool()
+        tool_response = processor_tool._run(pdf_path, student_question if student_question else None)
+        if is_tool_error_response(tool_response):
+            return tool_response, None
+        document_text = read_session_content()
+
         logger.info("Processing camera document")
         # Use the proper agent/task flow for document processing
         vt = VirtualTeacher()
@@ -180,8 +223,10 @@ def process_camera_document(pdf_file, student_question=""):
         crew.tasks = [vt.document_analysis_task()]
 
         inputs = {
-            "document_path": pdf_file,
-            "student_question": student_question if student_question else ""
+            "subject": subject,
+            "document_path": pdf_path,
+            "student_question": student_question if student_question else "",
+            "document_text": document_text
         }
 
         result = crew.kickoff(inputs=inputs)
@@ -228,7 +273,7 @@ def start_session(subject, chapter_number, content_source, pdf_file):
         if content_source == "Camera Document (📱 NEW!)":
             if not pdf_file:
                 return "Please upload your homework or textbook photo/PDF first!", None
-            return process_camera_document(pdf_file, "")
+            return process_camera_document(subject, pdf_file, "")
 
         # Load chapter content for both Chapter and Upload PDF modes
         chapter_content = resolve_chapter_content(subject, chapter_number, content_source, pdf_file)
@@ -279,7 +324,7 @@ def smart_first_response(subject, chapter_number, content_source, pdf_file, stud
         if content_source == "Camera Document (📱 NEW!)":
             if not pdf_file:
                 return "Please upload your homework or textbook first!", None
-            return process_camera_document(pdf_file, student_query)
+            return process_camera_document(subject, pdf_file, student_query)
 
         # For chapter/PDF content with specific questions
         chapter_content = resolve_chapter_content(subject, chapter_number, content_source, pdf_file)
@@ -334,11 +379,41 @@ def follow_up(subject, chapter_number, content_source, pdf_file, student_query):
         logger.info("Handling follow-up interaction")
         # Handle document-based questions
         if content_source == "Camera Document (📱 NEW!)":
-            if not pdf_file:
+            pdf_path = coerce_file_path(pdf_file)
+            if not pdf_path:
                 return "Please upload your homework or textbook first!", None
-            # For follow-up questions about documents, use AnswerFromDocumentTool directly
-            # since the document should already be processed and stored
-            return answer_document_question(student_query)
+            # Ensure document content exists for follow-ups
+            session_path = os.environ.get('CURRENT_SESSION_CONTENT')
+            if not session_path or not os.path.exists(session_path):
+                processor_tool = ProcessUploadedDocumentTool()
+                tool_response = processor_tool._run(pdf_path, None)
+                if is_tool_error_response(tool_response):
+                    return tool_response, None
+            document_text = read_session_content()
+
+            # Use document_teacher to answer in subject context
+            vt = VirtualTeacher()
+            crew = vt.crew()
+            crew.agents = [vt.document_teacher()]
+            crew.tasks = [vt.document_analysis_task()]
+
+            inputs = {
+                "subject": subject,
+                "document_path": pdf_path,
+                "student_question": student_query,
+                "document_text": document_text
+            }
+
+            result = crew.kickoff(inputs=inputs)
+            response_text = getattr(result, "raw", None)
+            response_text = clean_response_text(response_text)
+
+            if not response_text:
+                response_text = "I'm here to help! Could you clarify your question?"
+
+            cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+            audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if subject.lower() == 'hindi' else 'en')
+            return response_text, audio_path
 
         # Original functionality for chapters and uploaded PDFs
         chapter_content = resolve_chapter_content(subject, chapter_number, content_source, pdf_file)

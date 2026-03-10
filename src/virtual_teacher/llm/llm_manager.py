@@ -1,27 +1,25 @@
 """
-LLM Manager for handling multiple local models via Ollama
-Supports Indian language processing and model switching
+LLM Manager for OpenAI models.
+Supports model tiers and switching.
 """
 
+import os
 import yaml
-import ollama
 from pathlib import Path
-from typing import Dict, Any, Optional, List
-from langchain_ollama import OllamaLLM
+from typing import Dict, Any, List
 import logging
 from crewai import LLM
 
 logger = logging.getLogger(__name__)
 
 
-class OllamaLLMManager:
-    """Manages Ollama models and Indian language processing"""
+class OpenAILLMManager:
+    """Manages OpenAI models and tier switching."""
     
     def __init__(self, config_path: str = "config/llm_config.yaml"):
         self.config = self._load_config(config_path)
-        self.client = ollama.Client(host=self.config['ollama']['base_url'])
-        logger.info(f"Ollama client initialized with base_url: {self.config['ollama']['base_url']}")
         self.current_models = {}
+        self._require_api_key()
         self._initialize_models()
     
     def _load_config(self, config_path: str) -> Dict[str, Any]:
@@ -32,22 +30,27 @@ class OllamaLLMManager:
             logger.info(f"LLM config file not found at {config_path}, creating default config")
             # Create default config if not exists
             default_config = {
-                'llms': {
-                    'start': {
-                        'primary': 'llama3.1:8b',
-                        'fallback': 'qwen2.5:7b-instruct'
+                "llms": {
+                    "start": {
+                        "primary": "gpt-4o-mini",
+                        "fallback": "gpt-4o",
                     },
-                    'scale': {
-                        'primary': 'mixtral:8x7b-instruct', 
-                        'fallback': 'llama3.1:70b-instruct',
-                        'high_performance': 'qwen2.5:32b-instruct'
+                    "scale": {
+                        "primary": "gpt-4o",
+                        "fallback": "gpt-4.1",
+                        "high_performance": "gpt-4.1",
                     },
-                    'active': 'start'
+                    "active": "start",
                 },
-                'ollama': {
-                    'base_url': 'http://localhost:11434',
-                    'timeout': 120
-                }
+                "openai": {
+                    "api_key_env": "OPENAI_API_KEY",
+                    "base_url": None,
+                    "organization": None,
+                    "project": None,
+                    "timeout": 120,
+                    "temperature": 0.2,
+                    "max_retries": 2,
+                },
             }
             config_file.parent.mkdir(parents=True, exist_ok=True)
             with open(config_file, 'w') as f:
@@ -57,44 +60,54 @@ class OllamaLLMManager:
         with open(config_file, 'r') as f:
             return yaml.safe_load(f)
     
+    def _require_api_key(self) -> None:
+        openai_config = self.config.get("openai", {})
+        api_key_env = openai_config.get("api_key_env") or "OPENAI_API_KEY"
+        if not os.getenv(api_key_env):
+            raise ValueError(
+                f"{api_key_env} is required. Set it in your environment or .env file."
+            )
+
     def _initialize_models(self):
-        """Initialize and pull required models"""
-        active_tier = self.config['llms']['active']
-        models = self.config['llms'][active_tier]
+        """Initialize OpenAI models based on the active tier."""
+        active_tier = self.config["llms"]["active"]
+        models = self.config["llms"][active_tier]
         
         for role, model_name in models.items():
             try:
-                # Check if model exists, pull if needed
-                self._ensure_model_available(model_name)
-                self.current_models[role] = LLM(
-                    model = f"ollama/{model_name}",
-                    base_url = self.config['ollama']['base_url']
-                )
-
-                # OllamaLLM(
-                #     model=model_name
-                # )
+                self.current_models[role] = self._build_llm(model_name)
                 logger.info(f"Initialized {role} model: {model_name}")
             except Exception as e:
                 logger.warning(f"Failed to initialize {role} model {model_name}: {e}")
-    
-    def _ensure_model_available(self, model_name: str):
-        """Ensure model is available locally, pull if needed"""
-        try:
-            # Check if model exists
-            models = self.client.list()
-           
-            available_models = [m['model'] for m in models['models']]
-            
-            if model_name not in available_models:
-                logger.info(f"Pulling model {model_name}...")
-                self.client.pull(model_name)
-                logger.info(f"Successfully pulled {model_name}")
-        except Exception as e:
-            logger.error(f"Error ensuring model {model_name} is available: {e}")
-            raise
-    
-    def get_llm(self, role: str = "primary") -> OllamaLLM:
+
+    def _build_llm(self, model_name: str) -> LLM:
+        """Build an OpenAI-backed CrewAI LLM instance."""
+        openai_config = self.config.get("openai", {})
+        api_key_env = openai_config.get("api_key_env") or "OPENAI_API_KEY"
+        api_key = os.getenv(api_key_env)
+
+        llm_kwargs: Dict[str, Any] = {}
+        for key in (
+            "timeout",
+            "temperature",
+            "base_url",
+            "organization",
+            "project",
+            "max_retries",
+            "max_tokens",
+            "max_completion_tokens",
+            "reasoning_effort",
+        ):
+            value = openai_config.get(key)
+            if value is not None:
+                llm_kwargs[key] = value
+
+        if api_key:
+            llm_kwargs["api_key"] = api_key
+
+        return LLM(model=model_name, **llm_kwargs)
+
+    def get_llm(self, role: str = "primary") -> LLM:
         """Get LLM instance for specified role"""
         if role in self.current_models:
             logger.debug(f"Returning LLM for role={role}")
@@ -114,21 +127,23 @@ class OllamaLLMManager:
             logger.error(f"Unknown tier: {new_tier}")
     
     def get_available_models(self) -> List[str]:
-        """Get list of available local models"""
-        try:
-            models = self.client.list()
-            return [m['name'] for m in models['models']]
-        except Exception as e:
-            logger.error(f"Error getting available models: {e}")
-            return []
+        """Get list of configured models across tiers."""
+        models: List[str] = []
+        for tier_name, tier_models in self.config.get("llms", {}).items():
+            if tier_name == "active" or not isinstance(tier_models, dict):
+                continue
+            for model_name in tier_models.values():
+                if isinstance(model_name, str):
+                    models.append(model_name)
+        return sorted(set(models))
 
 
 # Global LLM manager instance
 _llm_manager = None
 
-def get_llm_manager() -> OllamaLLMManager:
+def get_llm_manager() -> OpenAILLMManager:
     """Get global LLM manager instance"""
     global _llm_manager
     if _llm_manager is None:
-        _llm_manager = OllamaLLMManager()
+        _llm_manager = OpenAILLMManager()
     return _llm_manager

@@ -1,29 +1,17 @@
-#!/bin/bash
-# Setup script for Ollama and models
+#!/usr/bin/env bash
 
-echo 'Setting up Ollama and models for Virtual Teacher...'
+# Setup script for OpenAI-backed Virtual Teacher
 
-# Install Ollama (if not already installed)
-if ! command -v ollama &> /dev/null; then
-    echo 'Installing Ollama...'
-    curl -fsSL https://ollama.com/install.sh | sh
+set -euo pipefail
+
+echo 'Setting up OpenAI for Virtual Teacher...'
+
+if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+    echo 'OPENAI_API_KEY is not set.'
+    echo 'Export it before running the app, for example:'
+    echo '  export OPENAI_API_KEY="your-api-key-here"'
+    exit 1
 fi
 
-# Start Ollama service
-echo 'Starting Ollama service...'
-ollama serve &
-
-# Wait for service to start
-sleep 5
-
-# Pull recommended models
-echo 'Pulling Llama 3.1 8B Instruct...'
-ollama pull llama3.1:8b
-
-echo 'Pulling Qwen 2.5 7B Instruct...'
-ollama pull qwen2.5:7b-instruct
-
-echo 'Setup complete! You can now run the Virtual Teacher.'
-echo 'For better performance, consider pulling larger models:'
-echo '  ollama pull mixtral:8x7b-instruct'
-echo '  ollama pull llama3.1:70b-instruct'
+echo 'OPENAI_API_KEY is set.'
+echo 'You can now run: crewai run'
