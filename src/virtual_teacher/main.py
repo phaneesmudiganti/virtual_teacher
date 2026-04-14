@@ -10,10 +10,12 @@ from virtual_teacher.crew import VirtualTeacher
 from virtual_teacher.tools.custom_tool import ProcessUploadedDocumentTool, AnswerFromDocumentTool
 from virtual_teacher.utils.audio_processor import AudioProcessor
 from virtual_teacher.utils.file_manager import FileManager
+from virtual_teacher.utils.response_store import ResponseStore
 
 logger = logging.getLogger(__name__)
 audio_processor = AudioProcessor()
 file_manager = FileManager()
+response_store = ResponseStore()
 
 def coerce_file_path(file_input):
     """Normalize gradio file input into a filesystem path string."""
@@ -110,6 +112,24 @@ def normalize_question(question: str) -> str:
     for pat, repl in patterns:
         q = re.sub(pat, repl, q, flags=re.IGNORECASE)
     return q
+
+
+def build_cache_payload(subject: str, chapter_number: int, content_source: str, pdf_file, student_query: str, intent: str) -> dict:
+    pdf_path = coerce_file_path(pdf_file)
+    document_hash = None
+    if pdf_path:
+        try:
+            document_hash = response_store.file_hash(pdf_path)
+        except Exception:
+            document_hash = None
+    return {
+        "intent": intent,
+        "subject": subject,
+        "chapter_number": chapter_number,
+        "content_source": content_source,
+        "student_query": student_query or "",
+        "document_hash": document_hash,
+    }
 
 
 def fallback_for_unknown(subject: str, student_query: str) -> str:
@@ -569,6 +589,7 @@ def run():
 
                 is_first_turn = (len(history_v) == 0)
                 is_empty_message = (message_v is None or str(message_v).strip() == "")
+                normalized_message = normalize_question(message_v) if message_v else ""
 
                 # Cast chapter to int safely
                 chap_int = None
@@ -576,14 +597,56 @@ def run():
                     chap_int = int(chapter_v)
 
                 if is_first_turn and not is_empty_message and is_specific_question(message_v):
-                    # Student asked a specific question in first interaction - answer directly
-                    response_text, audio_path = smart_first_response(subject_v, chap_int or 1, src_v, pdf_v, message_v)
+                    cache_payload = build_cache_payload(subject_v, chap_int or 1, src_v, pdf_v, normalized_message, "smart_first_response")
+                    cached = response_store.get(cache_payload)
+                    if cached:
+                        response_text = cached.get("text", "")
+                        audio_path = cached.get("audio_path")
+                        if not audio_path and response_text:
+                            cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+                            audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if subject_v.lower() == 'hindi' else 'en')
+                            cached = response_store.save(cache_payload, response_text, audio_path)
+                            audio_path = cached.get("audio_path", audio_path)
+                    else:
+                        # Student asked a specific question in first interaction - answer directly
+                        response_text, audio_path = smart_first_response(subject_v, chap_int or 1, src_v, pdf_v, message_v)
+                        saved = response_store.save(cache_payload, response_text, audio_path)
+                        response_text = saved.get("text", response_text)
+                        audio_path = saved.get("audio_path", audio_path)
                 elif is_first_turn or (is_empty_message and src_v != "Camera Document (📱 NEW!)"):
-                    # First turn without specific question - show greeting
-                    response_text, audio_path = start_session(subject_v, chap_int or 1, src_v, pdf_v)
+                    cache_payload = build_cache_payload(subject_v, chap_int or 1, src_v, pdf_v, "", "greeting")
+                    cached = response_store.get(cache_payload)
+                    if cached:
+                        response_text = cached.get("text", "")
+                        audio_path = cached.get("audio_path")
+                        if not audio_path and response_text:
+                            cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+                            audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if subject_v.lower() == 'hindi' else 'en')
+                            cached = response_store.save(cache_payload, response_text, audio_path)
+                            audio_path = cached.get("audio_path", audio_path)
+                    else:
+                        # First turn without specific question - show greeting
+                        response_text, audio_path = start_session(subject_v, chap_int or 1, src_v, pdf_v)
+                        saved = response_store.save(cache_payload, response_text, audio_path)
+                        response_text = saved.get("text", response_text)
+                        audio_path = saved.get("audio_path", audio_path)
                 else:
-                    # Follow-up interactions
-                    response_text, audio_path = follow_up(subject_v, chap_int or 1, src_v, pdf_v, message_v)
+                    cache_payload = build_cache_payload(subject_v, chap_int or 1, src_v, pdf_v, normalized_message, "follow_up")
+                    cached = response_store.get(cache_payload)
+                    if cached:
+                        response_text = cached.get("text", "")
+                        audio_path = cached.get("audio_path")
+                        if not audio_path and response_text:
+                            cleaned_text = audio_processor.clean_text_for_audio(response_text, False)
+                            audio_path = audio_processor.generate_tts(cleaned_text, lang='hi' if subject_v.lower() == 'hindi' else 'en')
+                            cached = response_store.save(cache_payload, response_text, audio_path)
+                            audio_path = cached.get("audio_path", audio_path)
+                    else:
+                        # Follow-up interactions
+                        response_text, audio_path = follow_up(subject_v, chap_int or 1, src_v, pdf_v, message_v)
+                        saved = response_store.save(cache_payload, response_text, audio_path)
+                        response_text = saved.get("text", response_text)
+                        audio_path = saved.get("audio_path", audio_path)
 
                 # Append the current turn
                 display_message = message_v if message_v else "👋 Starting session..."
