@@ -19,9 +19,24 @@ class AudioProcessor:
     @staticmethod
     def clean_text_for_audio(text: str, preserve_parentheses: bool = False) -> str:
         text = re.sub(r'\*\*|\*|__|~~|`|–|-', '', text)
-        text = re.sub(r'\([^()\n]+\)', '', text)
+        def _paren_repl(match):
+            inner = match.group(1).strip()
+            if not inner:
+                return ''
+            if inner.endswith(('.', '!', '?')):
+                return f". {inner} "
+            return f". {inner}. "
+        text = re.sub(r'\(([^()\n]+)\)', _paren_repl, text)
         text = re.sub(r'(\d+\.\s*)([^\n]+)', r'\1\2.', text)
         text = re.sub(r'(English meaning:.*?)\n', r'\1. ', text)
+        text = re.sub(
+            r'([^\n]*?:[^\n]+)\n',
+            lambda m: (
+                lambda line: f"{line} " if line.endswith(('.', '!', '?')) else f"{line}. "
+            )(m.group(1).strip()),
+            text
+        )
+        text = re.sub(r'\s-\s', '. ', text)
         text = re.sub(r'\n\s*[\*\-•]\s*', r'. ', text)
         text = re.sub(r'\s{2,}', ' ', text)
         return text.replace('\n', ' ').strip()

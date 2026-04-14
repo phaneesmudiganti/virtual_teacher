@@ -523,6 +523,12 @@ def run():
 
         chat_md = gr.Markdown(label="Chat History")
         history_state = gr.State([])
+        history_turn = gr.Dropdown(
+            label="Replay Previous Response",
+            choices=[],
+            value=None
+        )
+        replay_btn = gr.Button("Replay Selected", size="sm")
 
         # --- Enhanced UI visibility logic ---
         def toggle_content_inputs(src_choice):
@@ -548,10 +554,18 @@ def run():
         )
 
         # --- Enhanced chat handler with smart question detection ---
+        def build_turn_choices(history_v):
+            return [f"Turn {i}" for i in range(1, len(history_v) + 1)]
+
         def chat(subject_v, chapter_v, src_v, pdf_v, message_v, history_v):
             try:
                 if history_v is None:
                     history_v = []
+                if history_v and isinstance(history_v[0], tuple):
+                    history_v = [
+                        {"user": u, "teacher": t, "audio": None}
+                        for (u, t) in history_v
+                    ]
 
                 is_first_turn = (len(history_v) == 0)
                 is_empty_message = (message_v is None or str(message_v).strip() == "")
@@ -573,21 +587,27 @@ def run():
 
                 # Append the current turn
                 display_message = message_v if message_v else "👋 Starting session..."
-                history_v.append((display_message, response_text))
+                history_v.append({
+                    "user": display_message,
+                    "teacher": response_text,
+                    "audio": audio_path
+                })
 
                 # Build enhanced Markdown conversation
                 md_lines = []
-                for i, (user_msg, teacher_msg) in enumerate(history_v, start=1):
+                for i, turn in enumerate(history_v, start=1):
+                    user_msg = turn.get("user", "")
+                    teacher_msg = turn.get("teacher", "")
                     md_lines.append(f"### 💬 Turn {i}")
                     md_lines.append(f"**You:** {user_msg or ''}")
                     md_lines.append(f"**Teacher:** {teacher_msg or ''}")
                 md = "\n\n---\n\n".join(md_lines)
-
-                return response_text, audio_path, history_v, md, ""
+                turn_choices = build_turn_choices(history_v)
+                return response_text, audio_path, history_v, md, "", gr.update(choices=turn_choices, value=turn_choices[-1] if turn_choices else None)
 
             except Exception:
                 logger.exception("Error in chat")
-                return "An unexpected error occurred. Please refresh and try again.", None, history_v or [], "", ""
+                return "An unexpected error occurred. Please refresh and try again.", None, history_v or [], "", "", gr.update(choices=build_turn_choices(history_v or []), value=None)
 
         # Quick action handlers
         def quick_action(action_type, subject_v, chapter_v, src_v, pdf_v, history_v):
@@ -602,26 +622,44 @@ def run():
         ask_btn.click(
             fn=chat,
             inputs=[subject, chapter_number, content_source, pdf_file, message, history_state],
-            outputs=[response, audio, history_state, chat_md, message],
+            outputs=[response, audio, history_state, chat_md, message, history_turn],
         )
 
         # Quick action buttons
         explain_btn.click(
             fn=lambda s, c, src, p, h: quick_action("explain", s, c, src, p, h),
             inputs=[subject, chapter_number, content_source, pdf_file, history_state],
-            outputs=[response, audio, history_state, chat_md, message],
+            outputs=[response, audio, history_state, chat_md, message, history_turn],
         )
 
         solve_btn.click(
             fn=lambda s, c, src, p, h: quick_action("solve", s, c, src, p, h),
             inputs=[subject, chapter_number, content_source, pdf_file, history_state],
-            outputs=[response, audio, history_state, chat_md, message],
+            outputs=[response, audio, history_state, chat_md, message, history_turn],
         )
 
         words_btn.click(
             fn=lambda s, c, src, p, h: quick_action("words", s, c, src, p, h),
             inputs=[subject, chapter_number, content_source, pdf_file, history_state],
-            outputs=[response, audio, history_state, chat_md, message],
+            outputs=[response, audio, history_state, chat_md, message, history_turn],
+        )
+
+        def replay_from_history(turn_choice, history_v):
+            if not history_v or not turn_choice:
+                return "", None
+            try:
+                idx = int(turn_choice.replace("Turn ", "").strip()) - 1
+            except ValueError:
+                return "", None
+            if idx < 0 or idx >= len(history_v):
+                return "", None
+            turn = history_v[idx]
+            return turn.get("teacher", ""), turn.get("audio", None)
+
+        replay_btn.click(
+            fn=replay_from_history,
+            inputs=[history_turn, history_state],
+            outputs=[response, audio],
         )
 
         # Enhanced examples section
